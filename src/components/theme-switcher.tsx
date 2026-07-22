@@ -108,7 +108,7 @@ export function ThemeSwitcher() {
     document.documentElement.classList.remove("rgb-mode");
     setRgbActive(false);
     if (rgbInterval.current) { cancelAnimationFrame(rgbInterval.current as unknown as number); rgbInterval.current = null; }
-    if (cycleInterval.current) { clearInterval(cycleInterval.current); cycleInterval.current = null; setCycleActive(false); }
+    if (cycleInterval.current) { clearInterval(cycleInterval.current); cycleInterval.current = null; setCycleActive(false); document.documentElement.classList.remove("cycle-mode"); }
     try { localStorage.setItem("qf-theme", theme.id); } catch {}
   };
 
@@ -131,19 +131,22 @@ export function ThemeSwitcher() {
       clearInterval(cycleInterval.current);
       cycleInterval.current = null;
       setCycleActive(false);
+      // Remove transition class
+      document.documentElement.classList.remove("cycle-mode");
     } else {
       setCycleActive(true);
-      if (rgbInterval.current) { cancelAnimationFrame(rgbInterval.current as unknown as number); rgbInterval.current = null; setRgbActive(false); }
+      document.documentElement.classList.remove("rgb-mode");
+      setRgbActive(false);
+      if (rgbInterval.current) { cancelAnimationFrame(rgbInterval.current as unknown as number); rgbInterval.current = null; }
+      // Add CSS transition class for smooth 0.5s color morphing
+      document.documentElement.classList.add("cycle-mode");
       let idx = THEMES.findIndex((t) => t.id === active);
       cycleInterval.current = setInterval(() => {
         idx = (idx + 1) % THEMES.length;
-        const root = document.documentElement;
-        Object.entries(THEMES[idx].vars).forEach(([key, val]) => {
-          root.style.setProperty(key, val);
-          // Add transition for smooth 0.5s color change
-          root.style.transition = "background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease";
-        });
-        setActive(THEMES[idx].id);
+        applyTheme(THEMES[idx]);
+        // Re-add cycle-mode since applyTheme removes it
+        document.documentElement.classList.add("cycle-mode");
+        setCycleActive(true);
       }, 7000);
     }
   };
