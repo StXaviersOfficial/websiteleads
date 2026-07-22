@@ -59,94 +59,141 @@ export function ThemeSwitcher() {
   const [active, setActive] = React.useState("cyan");
   const [rgbActive, setRgbActive] = React.useState(false);
   const [cycleActive, setCycleActive] = React.useState(false);
-  const rgbInterval = React.useRef<ReturnType<typeof setInterval> | null>(null);
+  const rgbInterval = React.useRef<ReturnType<typeof setTimeout> | null>(null);
   const cycleInterval = React.useRef<ReturnType<typeof setInterval> | null>(null);
 
+  // EXACT second-last version RGB — JS interval updating CSS vars
+  // Also updates --background, --card, --secondary so BOTTOM changes too
   const applyRGB = (hue: number) => {
     const root = document.documentElement;
-    const primary = `hsl(${hue}, 85%, 60%)`;
-    const accent = `hsl(${(hue + 60) % 360}, 80%, 55%)`;
-    root.style.setProperty("--primary", primary);
-    root.style.setProperty("--accent", accent);
-    root.style.setProperty("--brand-cyan", primary);
-    root.style.setProperty("--brand-blue", accent);
+    root.style.setProperty("--primary", `hsl(${hue}, 85%, 60%)`);
+    root.style.setProperty("--accent", `hsl(${(hue + 60) % 360}, 80%, 55%)`);
+    root.style.setProperty("--brand-cyan", `hsl(${hue}, 85%, 60%)`);
+    root.style.setProperty("--brand-blue", `hsl(${(hue + 60) % 360}, 80%, 55%)`);
     root.style.setProperty("--border", `hsla(${hue}, 85%, 60%, 0.25)`);
-    root.style.setProperty("--ring", primary);
-    root.style.setProperty("--sidebar-primary", primary);
-    root.style.setProperty("--sidebar-ring", primary);
+    root.style.setProperty("--ring", `hsl(${hue}, 85%, 60%)`);
     root.style.setProperty("--input", `hsla(${hue}, 85%, 60%, 0.12)`);
+    // Background gradient colors — changes TOP and BOTTOM
+    root.style.setProperty("--background", `hsl(${hue}, 40%, 8%)`);
+    root.style.setProperty("--card", `hsl(${hue}, 35%, 12%)`);
+    root.style.setProperty("--secondary", `hsl(${hue}, 35%, 12%)`);
+    root.style.setProperty("--muted", `hsl(${hue}, 35%, 12%)`);
+    root.style.setProperty("--sidebar", `hsl(${hue}, 40%, 8%)`);
+    root.style.setProperty("--sidebar-accent", `hsl(${hue}, 35%, 12%)`);
+    root.style.setProperty("--primary-foreground", `hsl(${hue}, 40%, 8%)`);
+    root.style.setProperty("--accent-foreground", `hsl(${hue}, 40%, 8%)`);
+    root.style.setProperty("--sidebar-primary", `hsl(${hue}, 85%, 60%)`);
+    root.style.setProperty("--sidebar-primary-foreground", `hsl(${hue}, 40%, 8%)`);
+    root.style.setProperty("--sidebar-border", `hsla(${hue}, 85%, 60%, 0.25)`);
+    root.style.setProperty("--sidebar-ring", `hsl(${hue}, 85%, 60%)`);
+    // Body background gradient — uses hue-shifted colors for mixing effect
+    document.body.style.backgroundImage = `
+      radial-gradient(ellipse 70% 50% at 15% 10%, hsla(${hue}, 85%, 60%, 0.38), transparent 65%),
+      radial-gradient(ellipse 55% 40% at 85% 25%, hsla(${(hue + 60) % 360}, 80%, 55%, 0.28), transparent 60%),
+      radial-gradient(ellipse 60% 35% at 25% 70%, hsla(${(hue + 30) % 360}, 85%, 60%, 0.24), transparent 55%),
+      radial-gradient(ellipse 75% 50% at 80% 90%, hsla(${(hue + 90) % 360}, 80%, 55%, 0.30), transparent 70%)
+    `;
   };
 
   const applyTheme = (theme: Theme) => {
     const root = document.documentElement;
-    // Set the theme's own vars
     Object.entries(theme.vars).forEach(([key, val]) => {
       root.style.setProperty(key, val);
     });
-    // Derive ALL missing variables from the theme's main colors
-    // This ensures EVERY element on the page changes color
+    // Derive ALL missing variables
     const bg = theme.vars["--background"];
     const card = theme.vars["--card"];
     const primary = theme.vars["--primary"];
-    const accent = theme.vars["--accent"];
-    if (bg) {
-      root.style.setProperty("--secondary", card || bg);
-      root.style.setProperty("--muted", card || bg);
-      root.style.setProperty("--popover", card || bg);
-      root.style.setProperty("--sidebar", bg);
-      root.style.setProperty("--sidebar-accent", card || bg);
-      root.style.setProperty("--primary-foreground", bg);
-      root.style.setProperty("--accent-foreground", bg);
-      root.style.setProperty("--sidebar-primary", primary);
-      root.style.setProperty("--sidebar-primary-foreground", bg);
-      root.style.setProperty("--sidebar-border", theme.vars["--border"] || "");
-      root.style.setProperty("--sidebar-ring", primary);
-      root.style.setProperty("--ring", primary);
-      root.style.setProperty("--input", `color-mix(in srgb, ${primary} 12%, transparent)`);
-    }
-    setActive(theme.id);
+    root.style.setProperty("--secondary", card || bg);
+    root.style.setProperty("--muted", card || bg);
+    root.style.setProperty("--popover", card || bg);
+    root.style.setProperty("--sidebar", bg);
+    root.style.setProperty("--sidebar-accent", card || bg);
+    root.style.setProperty("--primary-foreground", bg);
+    root.style.setProperty("--accent-foreground", bg);
+    root.style.setProperty("--sidebar-primary", primary);
+    root.style.setProperty("--sidebar-primary-foreground", bg);
+    root.style.setProperty("--sidebar-border", theme.vars["--border"] || "");
+    root.style.setProperty("--sidebar-ring", primary);
+    root.style.setProperty("--ring", primary);
+    root.style.setProperty("--input", `color-mix(in srgb, ${primary} 12%, transparent)`);
+    // Reset body background to CSS animation
+    document.body.style.backgroundImage = "";
     document.documentElement.classList.remove("rgb-mode");
+    document.documentElement.classList.remove("cycle-mode");
+    setActive(theme.id);
     setRgbActive(false);
-    if (rgbInterval.current) { cancelAnimationFrame(rgbInterval.current as unknown as number); rgbInterval.current = null; }
-    if (cycleInterval.current) { clearInterval(cycleInterval.current); cycleInterval.current = null; setCycleActive(false); document.documentElement.classList.remove("cycle-mode"); }
+    setCycleActive(false);
+    if (rgbInterval.current) { clearTimeout(rgbInterval.current); rgbInterval.current = null; }
+    if (cycleInterval.current) { clearInterval(cycleInterval.current); cycleInterval.current = null; }
     try { localStorage.setItem("qf-theme", theme.id); } catch {}
   };
 
+  // EXACT second-last version toggleRGB — requestAnimationFrame
   const toggleRGB = () => {
-    if (rgbActive) {
-      // Turn off — remove the CSS class and reset
-      document.documentElement.classList.remove("rgb-mode");
+    if (rgbInterval.current) {
+      clearTimeout(rgbInterval.current);
+      rgbInterval.current = null;
       setRgbActive(false);
       applyTheme(THEMES.find((t) => t.id === "cyan")!);
     } else {
-      // Turn on — add CSS class that triggers GPU-accelerated hue-rotate animation
-      document.documentElement.classList.add("rgb-mode");
       setRgbActive(true);
       if (cycleInterval.current) { clearInterval(cycleInterval.current); cycleInterval.current = null; setCycleActive(false); }
+      let hue = 0;
+      let lastTime = 0;
+      const tick = (time: number) => {
+        if (time - lastTime >= 50) {
+          hue = (hue + 3) % 360;
+          applyRGB(hue);
+          lastTime = time;
+        }
+        rgbInterval.current = setTimeout(() => requestAnimationFrame(tick), 0) as unknown as ReturnType<typeof setTimeout>;
+      };
+      rgbInterval.current = setTimeout(() => requestAnimationFrame(tick), 0) as unknown as ReturnType<typeof setTimeout>;
     }
   };
 
+  // Cycle mode — 7s interval, 0.5s CSS transition between themes
   const toggleCycle = () => {
     if (cycleInterval.current) {
       clearInterval(cycleInterval.current);
       cycleInterval.current = null;
       setCycleActive(false);
-      // Remove transition class
       document.documentElement.classList.remove("cycle-mode");
     } else {
       setCycleActive(true);
       document.documentElement.classList.remove("rgb-mode");
       setRgbActive(false);
-      if (rgbInterval.current) { cancelAnimationFrame(rgbInterval.current as unknown as number); rgbInterval.current = null; }
-      // Add CSS transition class for smooth 0.5s color morphing
+      if (rgbInterval.current) { clearTimeout(rgbInterval.current); rgbInterval.current = null; }
       document.documentElement.classList.add("cycle-mode");
       let idx = THEMES.findIndex((t) => t.id === active);
+      if (idx === -1) idx = 0;
       cycleInterval.current = setInterval(() => {
         idx = (idx + 1) % THEMES.length;
-        applyTheme(THEMES[idx]);
-        // Re-add cycle-mode since applyTheme removes it
-        document.documentElement.classList.add("cycle-mode");
-        setCycleActive(true);
+        const theme = THEMES[idx];
+        const root = document.documentElement;
+        Object.entries(theme.vars).forEach(([key, val]) => {
+          root.style.setProperty(key, val);
+        });
+        const bg = theme.vars["--background"];
+        const card = theme.vars["--card"];
+        const primary = theme.vars["--primary"];
+        root.style.setProperty("--secondary", card || bg);
+        root.style.setProperty("--muted", card || bg);
+        root.style.setProperty("--popover", card || bg);
+        root.style.setProperty("--sidebar", bg);
+        root.style.setProperty("--sidebar-accent", card || bg);
+        root.style.setProperty("--primary-foreground", bg);
+        root.style.setProperty("--accent-foreground", bg);
+        root.style.setProperty("--sidebar-primary", primary);
+        root.style.setProperty("--sidebar-primary-foreground", bg);
+        root.style.setProperty("--sidebar-border", theme.vars["--border"] || "");
+        root.style.setProperty("--sidebar-ring", primary);
+        root.style.setProperty("--ring", primary);
+        root.style.setProperty("--input", `color-mix(in srgb, ${primary} 12%, transparent)`);
+        document.body.style.backgroundImage = "";
+        root.classList.add("cycle-mode");
+        setActive(theme.id);
       }, 7000);
     }
   };
@@ -183,7 +230,6 @@ export function ThemeSwitcher() {
         />
       </button>
 
-      {/* Full-screen theme popup — like hamburger menu */}
       <AnimatePresence>
         {open && (
           <>
@@ -215,9 +261,8 @@ export function ThemeSwitcher() {
               </div>
 
               <div className="px-5 sm:px-8 py-5">
-                {/* RGB + Cycle buttons as special color circles */}
-                <div className="grid grid-cols-3 sm:grid-cols-6 md:grid-cols-8 gap-3 mb-5">
-                  {/* RGB button — has the RGB gradient effect on the button itself */}
+                <div className="grid grid-cols-3 sm:grid-cols-6 md:grid-cols-8 gap-3">
+                  {/* RGB button */}
                   <button
                     onClick={toggleRGB}
                     className={cn(
@@ -237,7 +282,7 @@ export function ThemeSwitcher() {
                     {rgbActive && <Check className="h-3 w-3 text-primary" />}
                   </button>
 
-                  {/* Cycle button — all colors split in a circle */}
+                  {/* Cycle button */}
                   <button
                     onClick={toggleCycle}
                     className={cn(
@@ -256,7 +301,6 @@ export function ThemeSwitcher() {
                     {cycleActive && <Check className="h-3 w-3 text-primary" />}
                   </button>
 
-                  {/* All 40 themes */}
                   {THEMES.map((theme) => (
                     <button
                       key={theme.id}

@@ -567,48 +567,6 @@ html, body {
 @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
 
-/* RGB mode — smooth gradient mixing via CSS custom property animation.
-   Uses @property for GPU-accelerated hue transitions.
-   Zero JS during animation = zero lag. Smooth 60fps gradient mixing. */
-@property --rgb-hue {
-  syntax: '<angle>';
-  initial-value: 0deg;
-  inherits: true;
-}
-
-html.rgb-mode {
-  --rgb-hue: 0deg;
-  animation: rgb-hue-cycle 10s linear infinite;
-}
-
-html.rgb-mode body {
-  background-image:
-    radial-gradient(ellipse 70% 50% at 15% 10%, hsl(var(--rgb-hue) 85% 60% / 38%), transparent 65%),
-    radial-gradient(ellipse 55% 40% at 85% 25%, hsl(calc(var(--rgb-hue) + 60deg) 80% 55% / 28%), transparent 60%),
-    radial-gradient(ellipse 60% 35% at 25% 70%, hsl(calc(var(--rgb-hue) + 30deg) 85% 60% / 24%), transparent 55%),
-    radial-gradient(ellipse 75% 50% at 80% 90%, hsl(calc(var(--rgb-hue) + 90deg) 80% 55% / 30%), transparent 70%) !important;
-  background-size: 220% 220% !important;
-  background-attachment: scroll !important;
-  animation: bg-mix 22s ease-in-out infinite, rgb-hue-cycle 10s linear infinite;
-}
-
-html.rgb-mode {
-  --primary: hsl(var(--rgb-hue) 85% 60%) !important;
-  --accent: hsl(calc(var(--rgb-hue) + 60deg) 80% 55%) !important;
-  --brand-cyan: hsl(var(--rgb-hue) 85% 60%) !important;
-  --brand-blue: hsl(calc(var(--rgb-hue) + 60deg) 80% 55%) !important;
-  --border: hsl(var(--rgb-hue) 85% 60% / 25%) !important;
-  --ring: hsl(var(--rgb-hue) 85% 60%) !important;
-  --input: hsl(var(--rgb-hue) 85% 60% / 12%) !important;
-  --sidebar-primary: hsl(var(--rgb-hue) 85% 60%) !important;
-  --sidebar-ring: hsl(var(--rgb-hue) 85% 60%) !important;
-}
-
-@keyframes rgb-hue-cycle {
-  from { --rgb-hue: 0deg; }
-  to   { --rgb-hue: 360deg; }
-}
-
 /* Cycle mode — smooth 0.5s transition between themes.
    When .cycle-mode is active, ALL CSS variables transition smoothly.
    The transition runs on the GPU (compositor) for zero lag. */
