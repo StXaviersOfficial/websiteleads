@@ -105,31 +105,24 @@ export function ThemeSwitcher() {
       root.style.setProperty("--input", `color-mix(in srgb, ${primary} 12%, transparent)`);
     }
     setActive(theme.id);
-    if (rgbInterval.current) { cancelAnimationFrame(rgbInterval.current as unknown as number); rgbInterval.current = null; setRgbActive(false); }
+    document.documentElement.classList.remove("rgb-mode");
+    setRgbActive(false);
+    if (rgbInterval.current) { cancelAnimationFrame(rgbInterval.current as unknown as number); rgbInterval.current = null; }
     if (cycleInterval.current) { clearInterval(cycleInterval.current); cycleInterval.current = null; setCycleActive(false); }
     try { localStorage.setItem("qf-theme", theme.id); } catch {}
   };
 
   const toggleRGB = () => {
-    if (rgbInterval.current) {
-      cancelAnimationFrame(rgbInterval.current as unknown as number);
-      rgbInterval.current = null;
+    if (rgbActive) {
+      // Turn off — remove the CSS class and reset
+      document.documentElement.classList.remove("rgb-mode");
       setRgbActive(false);
       applyTheme(THEMES.find((t) => t.id === "cyan")!);
     } else {
+      // Turn on — add CSS class that triggers GPU-accelerated hue-rotate animation
+      document.documentElement.classList.add("rgb-mode");
       setRgbActive(true);
       if (cycleInterval.current) { clearInterval(cycleInterval.current); cycleInterval.current = null; setCycleActive(false); }
-      let hue = 0;
-      let lastTime = 0;
-      const tick = (time: number) => {
-        if (time - lastTime >= 50) {
-          hue = (hue + 3) % 360;
-          applyRGB(hue);
-          lastTime = time;
-        }
-        rgbInterval.current = requestAnimationFrame(tick) as unknown as ReturnType<typeof setInterval>;
-      };
-      rgbInterval.current = requestAnimationFrame(tick) as unknown as ReturnType<typeof setInterval>;
     }
   };
 

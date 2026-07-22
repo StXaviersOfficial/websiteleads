@@ -566,3 +566,14 @@ html, body {
 
 @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
+
+/* RGB mode — GPU-accelerated hue rotation. Zero JS, zero lag.
+   Uses CSS filter: hue-rotate() which is a single GPU operation per frame.
+   Changes EVERYTHING: background, text, cards, borders, buttons — all at once. */
+html.rgb-mode {
+  animation: rgb-hue-rotate 8s linear infinite;
+}
+@keyframes rgb-hue-rotate {
+  from { filter: hue-rotate(0deg); }
+  to   { filter: hue-rotate(360deg); }
+}

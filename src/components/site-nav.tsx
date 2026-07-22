@@ -143,7 +143,7 @@ export function SiteNav() {
               exit={{ y: "-100%" }}
               transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
               className="fixed top-0 left-0 right-0 z-50 bg-background/98 border-b border-primary/30 shadow-2xl"
-              style={{ height: "100vh", maxHeight: "55vh" }}
+              style={{ height: "auto", maxHeight: "55vh" }}
             >
             {/* Top bar — close button on right, no empty space */}
             <div className="flex items-center justify-between px-5 sm:px-8 h-14 border-b border-border">
