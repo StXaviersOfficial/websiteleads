@@ -57,63 +57,13 @@ export const THEMES: Theme[] = [
 export function ThemeSwitcher() {
   const [open, setOpen] = React.useState(false);
   const [active, setActive] = React.useState("cyan");
-  const [rgbActive, setRgbActive] = React.useState(false);
-  const [cycleActive, setCycleActive] = React.useState(false);
-  const rgbInterval = React.useRef<ReturnType<typeof setTimeout> | null>(null);
-  const cycleInterval = React.useRef<ReturnType<typeof setInterval> | null>(null);
-
-  // RGB mode — fluid gradient mixing. 2-3 colors blend together like liquids.
-  // NOT 4 separate blobs. A smooth full-page gradient where 2 hues blend,
-  // and both hues shift over time = fluids mixing.
-  // Uses requestAnimationFrame at 60fps.
-  const applyRGB = (hue: number) => {
-    const root = document.documentElement;
-    // Two primary colors that are always 120deg apart (complementary)
-    const h1 = hue;                        // e.g. orange
-    const h2 = (hue + 120) % 360;         // e.g. blue
-    root.style.setProperty("--primary", `hsl(${h1}, 85%, 60%)`);
-    root.style.setProperty("--accent", `hsl(${h2}, 80%, 55%)`);
-    root.style.setProperty("--brand-cyan", `hsl(${h1}, 85%, 60%)`);
-    root.style.setProperty("--brand-blue", `hsl(${h2}, 80%, 55%)`);
-    root.style.setProperty("--border", `hsla(${h1}, 85%, 60%, 0.25)`);
-    root.style.setProperty("--ring", `hsl(${h1}, 85%, 60%)`);
-    root.style.setProperty("--input", `hsla(${h1}, 85%, 60%, 0.12)`);
-    root.style.setProperty("--background", `hsl(${hue}, 30%, 6%)`);
-    root.style.setProperty("--card", `hsl(${hue}, 25%, 10%)`);
-    root.style.setProperty("--secondary", `hsl(${hue}, 25%, 10%)`);
-    root.style.setProperty("--muted", `hsl(${hue}, 25%, 10%)`);
-    root.style.setProperty("--sidebar", `hsl(${hue}, 30%, 6%)`);
-    root.style.setProperty("--sidebar-accent", `hsl(${hue}, 25%, 10%)`);
-    root.style.setProperty("--primary-foreground", `hsl(${hue}, 30%, 6%)`);
-    root.style.setProperty("--accent-foreground", `hsl(${hue}, 30%, 6%)`);
-    root.style.setProperty("--sidebar-primary", `hsl(${h1}, 85%, 60%)`);
-    root.style.setProperty("--sidebar-primary-foreground", `hsl(${hue}, 30%, 6%)`);
-    root.style.setProperty("--sidebar-border", `hsla(${h1}, 85%, 60%, 0.25)`);
-    root.style.setProperty("--sidebar-ring", `hsl(${h1}, 85%, 60%)`);
-    // Fluid gradient — 2 main colors blending across the FULL page
-    // The gradient angle rotates slowly for fluid movement
-    const angle = (hue * 2) % 360;
-    // Two complementary hues blended in a linear gradient = fluid mixing
-    // Plus 2 softer radial highlights that shift position = liquid flow
-    document.body.style.backgroundImage = `
-      linear-gradient(${angle}deg, 
-        hsla(${h1}, 90%, 55%, 0.35) 0%, 
-        hsla(${h2}, 85%, 50%, 0.30) 50%,
-        hsla(${(hue + 60) % 360}, 80%, 55%, 0.28) 100%
-      ),
-      radial-gradient(ellipse 50% 40% at ${30 + Math.sin(hue * 0.04) * 15}% ${20 + Math.cos(hue * 0.03) * 10}%, hsla(${h1}, 90%, 60%, 0.25), transparent 60%),
-      radial-gradient(ellipse 50% 40% at ${70 + Math.cos(hue * 0.05) * 15}% ${80 + Math.sin(hue * 0.04) * 10}%, hsla(${h2}, 85%, 55%, 0.25), transparent 60%)
-    `;
-    document.body.style.backgroundSize = "100% 100%";
-    document.body.style.backgroundAttachment = "scroll";
-  };
+  const wrapRef = React.useRef<HTMLDivElement>(null);
 
   const applyTheme = (theme: Theme) => {
     const root = document.documentElement;
     Object.entries(theme.vars).forEach(([key, val]) => {
       root.style.setProperty(key, val);
     });
-    // Derive ALL missing variables
     const bg = theme.vars["--background"];
     const card = theme.vars["--card"];
     const primary = theme.vars["--primary"];
@@ -130,83 +80,10 @@ export function ThemeSwitcher() {
     root.style.setProperty("--sidebar-ring", primary);
     root.style.setProperty("--ring", primary);
     root.style.setProperty("--input", `color-mix(in srgb, ${primary} 12%, transparent)`);
-    // Reset body background to CSS animation
     document.body.style.backgroundImage = "";
-    document.documentElement.classList.remove("rgb-mode");
     document.documentElement.classList.remove("cycle-mode");
     setActive(theme.id);
-    setRgbActive(false);
-    setCycleActive(false);
-    if (rgbInterval.current) { clearTimeout(rgbInterval.current); rgbInterval.current = null; }
-    if (cycleInterval.current) { clearInterval(cycleInterval.current); cycleInterval.current = null; }
     try { localStorage.setItem("qf-theme", theme.id); } catch {}
-  };
-
-  // EXACT second-last version toggleRGB — requestAnimationFrame
-  const toggleRGB = () => {
-    if (rgbInterval.current) {
-      clearTimeout(rgbInterval.current);
-      rgbInterval.current = null;
-      setRgbActive(false);
-      applyTheme(THEMES.find((t) => t.id === "cyan")!);
-    } else {
-      setRgbActive(true);
-      if (cycleInterval.current) { clearInterval(cycleInterval.current); cycleInterval.current = null; setCycleActive(false); }
-      let hue = 0;
-      // Update every animation frame = 60fps
-      // Hue increments by 1deg per frame = full cycle in ~6 seconds
-      const tick = () => {
-        hue = (hue + 1) % 360;
-        applyRGB(hue);
-        rgbInterval.current = setTimeout(() => requestAnimationFrame(tick), 0) as unknown as ReturnType<typeof setTimeout>;
-      };
-      requestAnimationFrame(tick);
-    }
-  };
-
-  // Cycle mode — 7s interval, 0.5s CSS transition between themes
-  const toggleCycle = () => {
-    if (cycleInterval.current) {
-      clearInterval(cycleInterval.current);
-      cycleInterval.current = null;
-      setCycleActive(false);
-      document.documentElement.classList.remove("cycle-mode");
-    } else {
-      setCycleActive(true);
-      document.documentElement.classList.remove("rgb-mode");
-      setRgbActive(false);
-      if (rgbInterval.current) { clearTimeout(rgbInterval.current); rgbInterval.current = null; }
-      document.documentElement.classList.add("cycle-mode");
-      let idx = THEMES.findIndex((t) => t.id === active);
-      if (idx === -1) idx = 0;
-      cycleInterval.current = setInterval(() => {
-        idx = (idx + 1) % THEMES.length;
-        const theme = THEMES[idx];
-        const root = document.documentElement;
-        Object.entries(theme.vars).forEach(([key, val]) => {
-          root.style.setProperty(key, val);
-        });
-        const bg = theme.vars["--background"];
-        const card = theme.vars["--card"];
-        const primary = theme.vars["--primary"];
-        root.style.setProperty("--secondary", card || bg);
-        root.style.setProperty("--muted", card || bg);
-        root.style.setProperty("--popover", card || bg);
-        root.style.setProperty("--sidebar", bg);
-        root.style.setProperty("--sidebar-accent", card || bg);
-        root.style.setProperty("--primary-foreground", bg);
-        root.style.setProperty("--accent-foreground", bg);
-        root.style.setProperty("--sidebar-primary", primary);
-        root.style.setProperty("--sidebar-primary-foreground", bg);
-        root.style.setProperty("--sidebar-border", theme.vars["--border"] || "");
-        root.style.setProperty("--sidebar-ring", primary);
-        root.style.setProperty("--ring", primary);
-        root.style.setProperty("--input", `color-mix(in srgb, ${primary} 12%, transparent)`);
-        document.body.style.backgroundImage = "";
-        root.classList.add("cycle-mode");
-        setActive(theme.id);
-      }, 7000);
-    }
   };
 
   React.useEffect(() => {
@@ -231,13 +108,7 @@ export function ThemeSwitcher() {
       >
         <div
           className="h-5 w-5 rounded-full border border-border"
-          style={{
-            background: rgbActive
-              ? "conic-gradient(from 0deg, #ff0000, #ff8800, #ffff00, #00ff00, #0088ff, #8800ff, #ff0000)"
-              : cycleActive
-              ? "conic-gradient(from 0deg, #22D3EE, #A855F7, #10B981, #F97316, #F43F5E, #22D3EE)"
-              : activeTheme?.vars["--primary"] || "#22D3EE",
-          }}
+          style={{ background: activeTheme?.vars["--primary"] || "#22D3EE" }}
         />
       </button>
 
@@ -273,52 +144,13 @@ export function ThemeSwitcher() {
 
               <div className="px-5 sm:px-8 py-5">
                 <div className="grid grid-cols-3 sm:grid-cols-6 md:grid-cols-8 gap-3">
-                  {/* RGB button */}
-                  <button
-                    onClick={toggleRGB}
-                    className={cn(
-                      "flex flex-col items-center gap-1.5 p-2 rounded-lg transition-colors",
-                      rgbActive ? "bg-primary/10" : "hover:bg-muted/50"
-                    )}
-                  >
-                    <div
-                      className="h-10 w-10 rounded-full border-2"
-                      style={{
-                        background: "conic-gradient(from 0deg, #ff0000, #ff8800, #ffff00, #00ff00, #0088ff, #8800ff, #ff0000)",
-                        animation: "spin 3s linear infinite",
-                        borderColor: rgbActive ? "white" : "transparent",
-                      }}
-                    />
-                    <span className="text-[10px] font-mono text-muted-foreground">RGB</span>
-                    {rgbActive && <Check className="h-3 w-3 text-primary" />}
-                  </button>
-
-                  {/* Cycle button */}
-                  <button
-                    onClick={toggleCycle}
-                    className={cn(
-                      "flex flex-col items-center gap-1.5 p-2 rounded-lg transition-colors",
-                      cycleActive ? "bg-primary/10" : "hover:bg-muted/50"
-                    )}
-                  >
-                    <div
-                      className="h-10 w-10 rounded-full border-2"
-                      style={{
-                        background: "conic-gradient(#22D3EE, #A855F7, #10B981, #F97316, #F43F5E, #3B82F6, #EAB308, #EC4899, #22D3EE)",
-                        borderColor: cycleActive ? "white" : "transparent",
-                      }}
-                    />
-                    <span className="text-[10px] font-mono text-muted-foreground">Cycle</span>
-                    {cycleActive && <Check className="h-3 w-3 text-primary" />}
-                  </button>
-
                   {THEMES.map((theme) => (
                     <button
                       key={theme.id}
-                      onClick={() => applyTheme(theme)}
+                      onClick={() => { applyTheme(theme); }}
                       className={cn(
                         "flex flex-col items-center gap-1.5 p-2 rounded-lg transition-colors",
-                        active === theme.id && !rgbActive && !cycleActive ? "bg-primary/10" : "hover:bg-muted/50"
+                        active === theme.id ? "bg-primary/10" : "hover:bg-muted/50"
                       )}
                       title={theme.name}
                     >
@@ -326,13 +158,13 @@ export function ThemeSwitcher() {
                         className="h-10 w-10 rounded-full border-2"
                         style={{
                           background: theme.vars["--primary"],
-                          borderColor: active === theme.id && !rgbActive && !cycleActive ? "white" : "transparent",
+                          borderColor: active === theme.id ? "white" : "transparent",
                         }}
                       />
                       <span className="text-[10px] font-mono text-muted-foreground">
                         {theme.name}
                       </span>
-                      {active === theme.id && !rgbActive && !cycleActive && (
+                      {active === theme.id && (
                         <Check className="h-3 w-3 text-primary" />
                       )}
                     </button>

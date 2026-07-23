@@ -392,16 +392,17 @@ html, body {
   position: fixed;
   inset: 0;
   z-index: 101;
-  overflow-y: auto;
+  overflow: hidden;
   display: flex;
-  align-items: stretch;
+  align-items: center;
   justify-content: center;
 }
 .booking-modal-inner {
   width: 100%;
   max-width: 720px;
   margin: 0 auto;
-  min-h: 100vh;
+  max-height: 100vh;
+  overflow-y: auto;
 }
 
 /* ===== Discord FAB with blur-lock popup ===== */
@@ -567,13 +568,4 @@ html, body {
 @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
 
-/* Cycle mode — smooth 0.5s transition between themes.
-   When .cycle-mode is active, ALL CSS variables transition smoothly.
-   The transition runs on the GPU (compositor) for zero lag. */
-html.cycle-mode,
-html.cycle-mode body,
-html.cycle-mode * {
-  transition: background-color 1s ease, color 1s ease, border-color 1s ease,
-              box-shadow 1s ease, fill 1s ease, stroke 1s ease,
-              background 1s ease !important;
-}
+

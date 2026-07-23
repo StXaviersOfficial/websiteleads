@@ -214,7 +214,7 @@ export function BookingModal() {
               if (e.target === e.currentTarget && !submitting) closeBooking();
             }}
           >
-            <div className="booking-modal-inner relative min-h-screen w-full max-w-2xl mx-auto bg-card border-x border-primary/20 px-5 sm:px-8 py-6">
+            <div className="booking-modal-inner relative w-full max-w-2xl mx-auto bg-card border-x border-primary/20 px-5 sm:px-8 py-6">
               {/* Header with progress bar + step indicators — sticky */}
               <div className="sticky top-0 -mx-5 sm:-mx-8 px-5 sm:px-8 py-4 bg-card/95 border-b border-primary/20 z-10 mb-6">
                 <div className="flex items-center justify-between mb-3">
