@@ -62,37 +62,47 @@ export function ThemeSwitcher() {
   const rgbInterval = React.useRef<ReturnType<typeof setTimeout> | null>(null);
   const cycleInterval = React.useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // EXACT second-last version RGB — JS interval updating CSS vars
-  // Also updates --background, --card, --secondary so BOTTOM changes too
+  // RGB mode — multi-color gradient mixing. All colors visible at once.
+  // 4 blobs of different hues (red, green, blue, yellow) shift around the page
+  // simultaneously = lava lamp effect, not single-color cycling.
+  // Uses requestAnimationFrame at 60fps.
   const applyRGB = (hue: number) => {
     const root = document.documentElement;
+    // Primary = cycles through all hues
     root.style.setProperty("--primary", `hsl(${hue}, 85%, 60%)`);
-    root.style.setProperty("--accent", `hsl(${(hue + 60) % 360}, 80%, 55%)`);
+    root.style.setProperty("--accent", `hsl(${(hue + 120) % 360}, 80%, 55%)`);
     root.style.setProperty("--brand-cyan", `hsl(${hue}, 85%, 60%)`);
-    root.style.setProperty("--brand-blue", `hsl(${(hue + 60) % 360}, 80%, 55%)`);
+    root.style.setProperty("--brand-blue", `hsl(${(hue + 120) % 360}, 80%, 55%)`);
     root.style.setProperty("--border", `hsla(${hue}, 85%, 60%, 0.25)`);
     root.style.setProperty("--ring", `hsl(${hue}, 85%, 60%)`);
     root.style.setProperty("--input", `hsla(${hue}, 85%, 60%, 0.12)`);
-    // Background gradient colors — changes TOP and BOTTOM
-    root.style.setProperty("--background", `hsl(${hue}, 40%, 8%)`);
-    root.style.setProperty("--card", `hsl(${hue}, 35%, 12%)`);
-    root.style.setProperty("--secondary", `hsl(${hue}, 35%, 12%)`);
-    root.style.setProperty("--muted", `hsl(${hue}, 35%, 12%)`);
-    root.style.setProperty("--sidebar", `hsl(${hue}, 40%, 8%)`);
-    root.style.setProperty("--sidebar-accent", `hsl(${hue}, 35%, 12%)`);
-    root.style.setProperty("--primary-foreground", `hsl(${hue}, 40%, 8%)`);
-    root.style.setProperty("--accent-foreground", `hsl(${hue}, 40%, 8%)`);
+    root.style.setProperty("--background", `hsl(${hue}, 30%, 6%)`);
+    root.style.setProperty("--card", `hsl(${hue}, 25%, 10%)`);
+    root.style.setProperty("--secondary", `hsl(${hue}, 25%, 10%)`);
+    root.style.setProperty("--muted", `hsl(${hue}, 25%, 10%)`);
+    root.style.setProperty("--sidebar", `hsl(${hue}, 30%, 6%)`);
+    root.style.setProperty("--sidebar-accent", `hsl(${hue}, 25%, 10%)`);
+    root.style.setProperty("--primary-foreground", `hsl(${hue}, 30%, 6%)`);
+    root.style.setProperty("--accent-foreground", `hsl(${hue}, 30%, 6%)`);
     root.style.setProperty("--sidebar-primary", `hsl(${hue}, 85%, 60%)`);
-    root.style.setProperty("--sidebar-primary-foreground", `hsl(${hue}, 40%, 8%)`);
+    root.style.setProperty("--sidebar-primary-foreground", `hsl(${hue}, 30%, 6%)`);
     root.style.setProperty("--sidebar-border", `hsla(${hue}, 85%, 60%, 0.25)`);
     root.style.setProperty("--sidebar-ring", `hsl(${hue}, 85%, 60%)`);
-    // Body background gradient — uses hue-shifted colors for mixing effect
+    // Multi-color gradient — 4 blobs of DIFFERENT hues all visible at once
+    // Each blob is a different color (not all the same hue)
+    // They shift position as hue changes = lava lamp mixing effect
+    const h1 = hue;                    // red→cycle
+    const h2 = (hue + 90) % 360;      // green→cycle  
+    const h3 = (hue + 180) % 360;     // blue→cycle
+    const h4 = (hue + 270) % 360;     // purple→cycle
     document.body.style.backgroundImage = `
-      radial-gradient(ellipse 70% 50% at 15% 10%, hsla(${hue}, 85%, 60%, 0.38), transparent 65%),
-      radial-gradient(ellipse 55% 40% at 85% 25%, hsla(${(hue + 60) % 360}, 80%, 55%, 0.28), transparent 60%),
-      radial-gradient(ellipse 60% 35% at 25% 70%, hsla(${(hue + 30) % 360}, 85%, 60%, 0.24), transparent 55%),
-      radial-gradient(ellipse 75% 50% at 80% 90%, hsla(${(hue + 90) % 360}, 80%, 55%, 0.30), transparent 70%)
+      radial-gradient(ellipse 60% 50% at ${15 + Math.sin(hue * 0.05) * 20}% ${10 + Math.cos(hue * 0.03) * 15}%, hsla(${h1}, 90%, 60%, 0.45), transparent 50%),
+      radial-gradient(ellipse 55% 45% at ${85 + Math.cos(hue * 0.04) * 15}% ${25 + Math.sin(hue * 0.06) * 20}%, hsla(${h2}, 85%, 55%, 0.40), transparent 50%),
+      radial-gradient(ellipse 50% 40% at ${25 + Math.sin(hue * 0.07) * 25}% ${70 + Math.cos(hue * 0.05) * 15}%, hsla(${h3}, 80%, 60%, 0.38), transparent 50%),
+      radial-gradient(ellipse 65% 50% at ${80 + Math.cos(hue * 0.03) * 20}% ${90 + Math.sin(hue * 0.04) * 10}%, hsla(${h4}, 85%, 55%, 0.42), transparent 50%)
     `;
+    document.body.style.backgroundSize = "100% 100%";
+    document.body.style.backgroundAttachment = "scroll";
   };
 
   const applyTheme = (theme: Theme) => {
@@ -140,16 +150,14 @@ export function ThemeSwitcher() {
       setRgbActive(true);
       if (cycleInterval.current) { clearInterval(cycleInterval.current); cycleInterval.current = null; setCycleActive(false); }
       let hue = 0;
-      let lastTime = 0;
-      const tick = (time: number) => {
-        if (time - lastTime >= 50) {
-          hue = (hue + 3) % 360;
-          applyRGB(hue);
-          lastTime = time;
-        }
+      // Update every animation frame = 60fps
+      // Hue increments by 1deg per frame = full cycle in ~6 seconds
+      const tick = () => {
+        hue = (hue + 1) % 360;
+        applyRGB(hue);
         rgbInterval.current = setTimeout(() => requestAnimationFrame(tick), 0) as unknown as ReturnType<typeof setTimeout>;
       };
-      rgbInterval.current = setTimeout(() => requestAnimationFrame(tick), 0) as unknown as ReturnType<typeof setTimeout>;
+      requestAnimationFrame(tick);
     }
   };
 
