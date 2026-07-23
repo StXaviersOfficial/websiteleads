@@ -573,7 +573,7 @@ html, body {
 html.cycle-mode,
 html.cycle-mode body,
 html.cycle-mode * {
-  transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease,
-              box-shadow 0.5s ease, fill 0.5s ease, stroke 0.5s ease,
-              background 0.5s ease !important;
+  transition: background-color 1s ease, color 1s ease, border-color 1s ease,
+              box-shadow 1s ease, fill 1s ease, stroke 1s ease,
+              background 1s ease !important;
 }

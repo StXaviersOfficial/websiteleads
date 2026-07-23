@@ -62,20 +62,22 @@ export function ThemeSwitcher() {
   const rgbInterval = React.useRef<ReturnType<typeof setTimeout> | null>(null);
   const cycleInterval = React.useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // RGB mode — multi-color gradient mixing. All colors visible at once.
-  // 4 blobs of different hues (red, green, blue, yellow) shift around the page
-  // simultaneously = lava lamp effect, not single-color cycling.
+  // RGB mode — fluid gradient mixing. 2-3 colors blend together like liquids.
+  // NOT 4 separate blobs. A smooth full-page gradient where 2 hues blend,
+  // and both hues shift over time = fluids mixing.
   // Uses requestAnimationFrame at 60fps.
   const applyRGB = (hue: number) => {
     const root = document.documentElement;
-    // Primary = cycles through all hues
-    root.style.setProperty("--primary", `hsl(${hue}, 85%, 60%)`);
-    root.style.setProperty("--accent", `hsl(${(hue + 120) % 360}, 80%, 55%)`);
-    root.style.setProperty("--brand-cyan", `hsl(${hue}, 85%, 60%)`);
-    root.style.setProperty("--brand-blue", `hsl(${(hue + 120) % 360}, 80%, 55%)`);
-    root.style.setProperty("--border", `hsla(${hue}, 85%, 60%, 0.25)`);
-    root.style.setProperty("--ring", `hsl(${hue}, 85%, 60%)`);
-    root.style.setProperty("--input", `hsla(${hue}, 85%, 60%, 0.12)`);
+    // Two primary colors that are always 120deg apart (complementary)
+    const h1 = hue;                        // e.g. orange
+    const h2 = (hue + 120) % 360;         // e.g. blue
+    root.style.setProperty("--primary", `hsl(${h1}, 85%, 60%)`);
+    root.style.setProperty("--accent", `hsl(${h2}, 80%, 55%)`);
+    root.style.setProperty("--brand-cyan", `hsl(${h1}, 85%, 60%)`);
+    root.style.setProperty("--brand-blue", `hsl(${h2}, 80%, 55%)`);
+    root.style.setProperty("--border", `hsla(${h1}, 85%, 60%, 0.25)`);
+    root.style.setProperty("--ring", `hsl(${h1}, 85%, 60%)`);
+    root.style.setProperty("--input", `hsla(${h1}, 85%, 60%, 0.12)`);
     root.style.setProperty("--background", `hsl(${hue}, 30%, 6%)`);
     root.style.setProperty("--card", `hsl(${hue}, 25%, 10%)`);
     root.style.setProperty("--secondary", `hsl(${hue}, 25%, 10%)`);
@@ -84,22 +86,23 @@ export function ThemeSwitcher() {
     root.style.setProperty("--sidebar-accent", `hsl(${hue}, 25%, 10%)`);
     root.style.setProperty("--primary-foreground", `hsl(${hue}, 30%, 6%)`);
     root.style.setProperty("--accent-foreground", `hsl(${hue}, 30%, 6%)`);
-    root.style.setProperty("--sidebar-primary", `hsl(${hue}, 85%, 60%)`);
+    root.style.setProperty("--sidebar-primary", `hsl(${h1}, 85%, 60%)`);
     root.style.setProperty("--sidebar-primary-foreground", `hsl(${hue}, 30%, 6%)`);
-    root.style.setProperty("--sidebar-border", `hsla(${hue}, 85%, 60%, 0.25)`);
-    root.style.setProperty("--sidebar-ring", `hsl(${hue}, 85%, 60%)`);
-    // Multi-color gradient — 4 blobs of DIFFERENT hues all visible at once
-    // Each blob is a different color (not all the same hue)
-    // They shift position as hue changes = lava lamp mixing effect
-    const h1 = hue;                    // red→cycle
-    const h2 = (hue + 90) % 360;      // green→cycle  
-    const h3 = (hue + 180) % 360;     // blue→cycle
-    const h4 = (hue + 270) % 360;     // purple→cycle
+    root.style.setProperty("--sidebar-border", `hsla(${h1}, 85%, 60%, 0.25)`);
+    root.style.setProperty("--sidebar-ring", `hsl(${h1}, 85%, 60%)`);
+    // Fluid gradient — 2 main colors blending across the FULL page
+    // The gradient angle rotates slowly for fluid movement
+    const angle = (hue * 2) % 360;
+    // Two complementary hues blended in a linear gradient = fluid mixing
+    // Plus 2 softer radial highlights that shift position = liquid flow
     document.body.style.backgroundImage = `
-      radial-gradient(ellipse 60% 50% at ${15 + Math.sin(hue * 0.05) * 20}% ${10 + Math.cos(hue * 0.03) * 15}%, hsla(${h1}, 90%, 60%, 0.45), transparent 50%),
-      radial-gradient(ellipse 55% 45% at ${85 + Math.cos(hue * 0.04) * 15}% ${25 + Math.sin(hue * 0.06) * 20}%, hsla(${h2}, 85%, 55%, 0.40), transparent 50%),
-      radial-gradient(ellipse 50% 40% at ${25 + Math.sin(hue * 0.07) * 25}% ${70 + Math.cos(hue * 0.05) * 15}%, hsla(${h3}, 80%, 60%, 0.38), transparent 50%),
-      radial-gradient(ellipse 65% 50% at ${80 + Math.cos(hue * 0.03) * 20}% ${90 + Math.sin(hue * 0.04) * 10}%, hsla(${h4}, 85%, 55%, 0.42), transparent 50%)
+      linear-gradient(${angle}deg, 
+        hsla(${h1}, 90%, 55%, 0.35) 0%, 
+        hsla(${h2}, 85%, 50%, 0.30) 50%,
+        hsla(${(hue + 60) % 360}, 80%, 55%, 0.28) 100%
+      ),
+      radial-gradient(ellipse 50% 40% at ${30 + Math.sin(hue * 0.04) * 15}% ${20 + Math.cos(hue * 0.03) * 10}%, hsla(${h1}, 90%, 60%, 0.25), transparent 60%),
+      radial-gradient(ellipse 50% 40% at ${70 + Math.cos(hue * 0.05) * 15}% ${80 + Math.sin(hue * 0.04) * 10}%, hsla(${h2}, 85%, 55%, 0.25), transparent 60%)
     `;
     document.body.style.backgroundSize = "100% 100%";
     document.body.style.backgroundAttachment = "scroll";
