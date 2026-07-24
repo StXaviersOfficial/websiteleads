@@ -125,8 +125,8 @@ export function Maintenance() {
           </motion.p>
         </div>
 
-        {/* Desktop: 3 wide cards — same style as pricing */}
-        <div className="hidden md:grid md:grid-cols-3 gap-4 items-stretch">
+        {/* Desktop: 3 wide cards — same style as pricing TierCard */}
+        <div className="hidden lg:grid lg:grid-cols-3 gap-5 items-stretch">
           {PLANS.map((plan, i) => (
             <PlanCard
               key={plan.id}
@@ -148,7 +148,7 @@ export function Maintenance() {
 
         {/* Mobile: playing-card stack with tilted peeking cards */}
         <div
-          className="md:hidden relative"
+          className="lg:hidden relative"
           onWheel={onWheel}
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}
@@ -318,10 +318,10 @@ function PlanCard({
       transition={{ delay: index * 0.08, duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
       whileHover={{ y: -4, scale: 1.02 }}
       className={cn(
-        "relative rounded-xl border bg-card p-5 flex flex-col h-full",
+        "relative rounded-xl border bg-card p-5 flex flex-col h-full transition-colors shadow-lg",
         plan.bestCoverage
-          ? "border-primary/60 glow-cyan-strong"
-          : "border-border hover:border-primary/40"
+          ? "border-primary/60 glow-cyan-strong shadow-primary/20"
+          : "border-primary/20 hover:border-primary/50 hover:shadow-xl"
       )}
     >
       {plan.bestCoverage && (
