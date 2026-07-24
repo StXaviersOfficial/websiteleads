@@ -84,3 +84,7 @@ credentials.json
 
 # Firebase cache
 .firebase/
+memory.md
+tool-results/
+download/*.jpg
+download/*.jpeg
