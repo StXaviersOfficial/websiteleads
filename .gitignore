@@ -67,6 +67,20 @@ db/*.db-journal
 
 # Secrets
 .secure/
+credentials.md
+credentials.txt
+credentials.json
+**/chat_files/
+**/_recovered_credentials*
+**/_raw_body*
+**/_deep_scan*
+**/_inspection*
+
+# Local dev artifacts (not part of QuackForge)
+/repos/
+/scripts/*.py
+/scripts/*.log
+/skills/
 
 # Firebase cache
 .firebase/
