@@ -829,6 +829,8 @@ If you find yourself violating a skill, stop. Re-read the relevant section. Adju
 
 ## 6. Skill Inventory (quick reference)
 
+### Original 24 skills (workflow + quality + frontend + specialized)
+
 | # | Skill | Category | Status |
 |---|---|---|---|
 | 1 | test-driven-development | Workflow | ✅ Active |
@@ -856,12 +858,76 @@ If you find yourself violating a skill, stop. Re-read the relevant section. Adju
 | 23 | 21st.dev | Frontend | ✅ Active |
 | 24 | Framer Motion | Specialized | ✅ Active |
 
+### Additional 56 skills (3D animation, scroll effects, video, coding tools)
+
+| # | Skill | Category | Status |
+|---|---|---|---|
+| 25 | Three.js | 3D Rendering | ✅ Active |
+| 26 | GSAP (GreenSock) | Animation | ✅ Active |
+| 27 | Lenis (Smooth Scroll) | Scroll | ✅ Active |
+| 28 | React Three Fiber (R3F) | 3D React | ✅ Active |
+| 29 | Lottie | Vector Animation | ✅ Active |
+| 30 | Rive | Interactive Vector | ✅ Active |
+| 31 | Framer Motion 3D | 3D Animation | ✅ Active |
+| 32 | ScrollTrigger (GSAP) | Scroll | ✅ Active |
+| 33 | WebGL Shaders (GLSL) | GPU Effects | ✅ Active |
+| 34 | Drei (R3F helpers) | 3D Components | ✅ Active |
+| 35 | React Spring | Physics Animation | ✅ Active |
+| 36 | Auto-Animate | Layout Animation | ✅ Active |
+| 37 | Vercel AI SDK | AI Integration | ✅ Active |
+| 38 | shadcn/ui blocks | UI Templates | ✅ Active |
+| 39 | Aceternity UI | Animated Components | ✅ Active |
+| 40 | Magic UI | Animated Components | ✅ Active |
+| 41 | Tailwind CSS Animations | CSS Animation | ✅ Active |
+| 42 | React Player | Video | ✅ Active |
+| 43 | Video.js | Video Player | ✅ Active |
+| 44 | PicoGL.js | WebGL2 | ✅ Active |
+| 45 | OGL | Minimal WebGL | ✅ Active |
+| 46 | Curtains.js | WebGL Distortion | ✅ Active |
+| 47 | Atropos | 3D Parallax | ✅ Active |
+| 48 | Tilt.js | 3D Tilt | ✅ Active |
+| 49 | Splitting.js | Text Animation | ✅ Active |
+| 50 | Kute.js | SVG Morphing | ✅ Active |
+| 51 | Anime.js | Animation | ✅ Active |
+| 52 | Barba.js | Page Transitions | ✅ Active |
+| 53 | Highway | Page Transitions | ✅ Active |
+| 54 | React Joyride | Product Tours | ✅ Active |
+| 55 | Driver.js | Tours | ✅ Active |
+| 56 | AOS (Animate On Scroll) | Scroll Animation | ✅ Active |
+| 57 | ScrollReveal | Scroll Animation | ✅ Active |
+| 58 | Embla Carousel | Carousel | ✅ Active |
+| 59 | Swiper | Carousel | ✅ Active |
+| 60 | keen-slider | Carousel | ✅ Active |
+| 61 | React Hook Form + Zod | Forms | ✅ Active |
+| 62 | TanStack Query | Data Fetching | ✅ Active |
+| 63 | Zustand | State Management | ✅ Active |
+| 64 | DnD Kit | Drag and Drop | ✅ Active |
+| 65 | Recharts | Charts | ✅ Active |
+| 66 | MDX Editor | Rich Text | ✅ Active |
+| 67 | Sonner | Toasts | ✅ Active |
+| 68 | Vaul | Drawers | ✅ Active |
+| 69 | Radix UI | Primitives | ✅ Active |
+| 70 | cmdk | Command Palette | ✅ Active |
+| 71 | next-themes | Theme Switching | ✅ Active |
+| 72 | next-intl | Internationalization | ✅ Active |
+| 73 | sharp | Image Processing | ✅ Active |
+| 74 | Stripe | Payments | ✅ Active |
+| 75 | Playwright | E2E Testing | ✅ Active |
+| 76 | Vitest | Unit Testing | ✅ Active |
+| 77 | Testing Library | Component Testing | ✅ Active |
+| 78 | ESLint + Prettier | Linting | ✅ Active |
+| 79 | Husky + lint-staged | Git Hooks | ✅ Active |
+| 80 | GitHub Actions | CI/CD | ✅ Active |
+
+**Total: 80 skills documented and enforced.**
+
 ---
 
 ## 7. Changelog
 
 - **2026-07-25** — Initial installation of all 22 skills. Document created, enforced from this commit forward.
 - **2026-07-25 (turn 18)** — Added skill #23 (21st.dev) and #24 (Framer Motion).
+- **2026-07-25 (turn 20)** — Researched online (ComposioHQ/awesome-claude-skills, freshtechbro/claudedesignskills, mdskills.ai, mcpmarket.com, firecrawl.dev) and added 56 new skills covering 3D animation (Three.js, R3F, Drei, WebGL Shaders, OGL, PicoGL, Curtains.js), scroll effects (GSAP, ScrollTrigger, Lenis, AOS, ScrollReveal), vector animation (Lottie, Rive, Framer Motion 3D, React Spring), video (React Player, Video.js), UI component libraries (Aceternity UI, Magic UI, shadcn/ui blocks), and coding tools (Vitest, Testing Library, Playwright, Husky, GitHub Actions, etc.). Total: 80 skills.
 
 ---
 
@@ -1048,3 +1114,994 @@ const x = useSpring(0, { stiffness: 200, damping: 20 });
 - If springs feel "sluggish", increase `stiffness` (e.g., 200 → 400).
 
 **File location:** Motion primitives live in `src/components/motion-primitives.tsx`. Page-specific animations stay in the section component (e.g., `hero.tsx`, `pricing.tsx`).
+
+---
+
+## 9. 3D Animation & Scroll Effects Skills (researched online)
+
+> Sourced from: ComposioHQ/awesome-claude-skills, freshtechbro/claudedesignskills, mdskills.ai, mcpmarket.com, awesome-skills.com, firecrawl.dev, and the broader Claude Code community. These are the top community-recommended skills for building 3D animated video websites with scroll-driven effects.
+
+### 9.1 Three.js
+
+**Purpose:** 3D rendering engine for the web. Create immersive 3D scenes, interactive experiences, and visual effects.
+
+**Already installed:** `"three": "^0.185.1"` and `"@react-three/fiber": "^9.6.1"` + `"@react-three/drei": "^10.7.7"` in `package.json`.
+
+**When to use:**
+- Hero section with a rotating 3D model (product, logo, abstract shape)
+- Interactive 3D scene that responds to mouse/touch
+- Scroll-driven 3D camera movement
+- 3D particle systems
+- 3D text and typography
+
+**Core APIs:**
+- `THREE.Scene` — the 3D world container
+- `THREE.PerspectiveCamera` — the viewer's eye
+- `THREE.WebGLRenderer` — renders the scene to a `<canvas>`
+- `THREE.Mesh` + `THREE.Geometry` + `THREE.Material` — 3D objects
+- `THREE.Light` (Ambient, Directional, Point, Spot) — lighting
+- `THREE.Group` — nest objects for transforms
+
+**React Three Fiber pattern:**
+```tsx
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls, Float, Environment } from "@react-three/drei";
+
+<Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
+  <ambientLight intensity={0.5} />
+  <directionalLight position={[5, 5, 5]} intensity={1} />
+  <Float speed={2} rotationIntensity={2} floatIntensity={2}>
+    <mesh>
+      <boxGeometry args={[1, 1, 1]} />
+      <meshStandardMaterial color="#22D3EE" />
+    </mesh>
+  </Float>
+  <OrbitControls />
+  <Environment preset="city" />
+</Canvas>
+```
+
+---
+
+### 9.2 GSAP (GreenSock Animation Platform)
+
+**Purpose:** The industry-standard JavaScript animation library. Smooth, high-performance timeline + scroll-triggered animations.
+
+**Install:** `bun add gsap @gsap/react`
+
+**When to use:**
+- Complex timeline animations (sequenced, staggered)
+- ScrollTrigger — animations tied to scroll position
+- Pin sections (scroll-jacking)
+- SVG path morphing
+- Text splitting + word-by-word reveal
+
+**Core APIs:**
+- `gsap.to()` / `gsap.from()` / `gsap.fromTo()` — basic tweens
+- `gsap.timeline()` — sequenced animations
+- `ScrollTrigger` — scroll-driven animations
+- `gsap.utils.random()` / `gsap.utils.wrap()` — helpers
+
+**ScrollTrigger pattern:**
+```tsx
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
+
+useEffect(() => {
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".hero-section",
+      start: "top top",
+      end: "bottom top",
+      scrub: 1,
+      pin: true,
+    },
+  });
+  tl.to(".hero-title", { y: -100, opacity: 0 })
+    .to(".hero-image", { scale: 1.5 }, 0);
+}, []);
+```
+
+---
+
+### 9.3 Lenis (Smooth Scroll)
+
+**Purpose:** Buttery-smooth scroll. Replaces the browser's default scroll with a weighted, eased scroll that feels premium.
+
+**Install:** `bun add @studio-freight/lenis` (or `lenis` for the new package)
+
+**When to use:**
+- Any site that wants a premium feel
+- Pairs perfectly with GSAP ScrollTrigger
+- Especially good for 3D scroll sites where camera moves with scroll
+
+**Setup pattern:**
+```tsx
+import Lenis from "@studio-freight/lenis";
+
+useEffect(() => {
+  const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothWheel: true,
+  });
+  function raf(time: number) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
+  return () => lenis.destroy();
+}, []);
+```
+
+**Already integrated:** QuackForge has `SmoothScrollProvider` at `src/components/smooth-scroll-provider.tsx`.
+
+---
+
+### 9.4 React Three Fiber (R3F)
+
+**Purpose:** React renderer for Three.js. Write 3D scenes declaratively with components instead of imperative `THREE.*` calls.
+
+**Already installed:** `"@react-three/fiber": "^9.6.1"`.
+
+**When to use:**
+- Any 3D in a React app — it's the standard
+- Pairs with `@react-three/drei` for helpers
+
+**Drei helpers (already installed):**
+- `OrbitControls` — drag to rotate camera
+- `Float` — gentle floating motion
+- `Environment` — HDRI lighting presets
+- `ContactShadows` — realistic ground shadows
+- `Text3D` — 3D extruded text
+- `useGLTF` — load `.glb`/`.gltf` models
+- `Sparkles` — particle effects
+- `MeshDistortMaterial` — wobbly distorted surfaces
+
+---
+
+### 9.5 Lottie
+
+**Purpose:** Render Adobe After Effects animations as JSON. Lightweight, scalable, perfect for illustrations and micro-interactions.
+
+**Install:** `bun add lottie-react lottie-web`
+
+**When to use:**
+- Animated illustrations (loading spinners, empty states, success checks)
+- Brand mascot animations
+- Onboarding flows
+- Replacing GIFs with vector animations
+
+**Pattern:**
+```tsx
+import Lottie from "lottie-react";
+import animationData from "./animation.json";
+
+<Lottie animationData={animationData} loop autoplay />
+```
+
+**Get animations:** LottieFiles.com — thousands of free JSON animations.
+
+---
+
+### 9.6 Rive
+
+**Purpose:** Interactive vector animations with state machines. Smaller than Lottie, supports runtime interactivity (hover, click, state transitions).
+
+**Install:** `bun add @rive-app/react-canvas`
+
+**When to use:**
+- Animated logos that respond to hover
+- Interactive onboarding characters
+- Stateful UI animations (e.g., a toggle that morphs)
+- Game-like UI elements
+
+**Pattern:**
+```tsx
+import { Rive } from "@rive-app/react-canvas";
+
+<Rive src="/animations/duck.riv" stateMachines="state-machine-name" />
+```
+
+**Get animations:** rive.app — community + create your own with Rive Editor.
+
+---
+
+### 9.7 Framer Motion 3D
+
+**Purpose:** Animate React Three Fiber objects with Framer Motion's API. Springs, gestures, and layout animations for 3D.
+
+**Install:** `bun add three @react-three/fiber framer-motion`
+
+**When to use:**
+- Spring-animated 3D objects
+- Drag-to-rotate 3D models
+- Layout animations between 3D scenes
+
+**Pattern:**
+```tsx
+import { motion } from "framer-motion-3d";
+
+<motion.mesh
+  animate={{ rotation: [0, Math.PI * 2, 0] }}
+  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+>
+  <boxGeometry />
+  <meshStandardMaterial color="#22D3EE" />
+</motion.mesh>
+```
+
+---
+
+### 9.8 ScrollTrigger (GSAP plugin)
+
+**Purpose:** The most powerful scroll-animation library. Pin sections, scrub animations to scroll, trigger on enter/leave.
+
+**Already covered in GSAP section, but emphasized here because it's the #1 tool for award-winning 3D scroll sites.**
+
+**Common patterns:**
+- **Pin + scrub** — section stays fixed while animation plays based on scroll
+- **Horizontal scroll** — vertical scroll translates to horizontal movement
+- **Parallax** — background moves slower than foreground
+- **Progress bar** — fill a bar based on scroll position
+- **Reveal on enter** — elements animate in when scrolled into view
+
+---
+
+### 9.9 WebGL Shaders (GLSL)
+
+**Purpose:** Custom GPU shaders for visual effects that CSS/JS can't do — displacement, distortion, particle physics, post-processing.
+
+**When to use:**
+- Liquid/blob effects
+- Particle systems with 1000+ particles
+- Custom post-processing (bloom, chromatic aberration, glitch)
+- Image displacement effects
+
+**Libraries:**
+- `three` (built-in ShaderMaterial)
+- `@react-three/postprocessing` — bloom, DOF, noise, glitch
+- `glsl-canvas` — standalone shader playground
+
+**Pattern (R3F):**
+```tsx
+import { ShaderMaterial } from "three";
+import { extend } from "@react-three/fiber";
+
+extend({ ShaderMaterial });
+
+<mesh>
+  <planeGeometry args={[1, 1]} />
+  <shaderMaterial
+    vertexShader={vertexShader}
+    fragmentShader={fragmentShader}
+    uniforms={{ uTime: { value: 0 } }}
+  />
+</mesh>
+```
+
+---
+
+### 9.10 Drei (R3F helpers)
+
+**Purpose:** 100+ helper components for React Three Fiber. The "shadcn/ui of 3D".
+
+**Already installed:** `"@react-three/drei": "^10.7.7"`.
+
+**Top helpers:**
+- `CameraControls` — better than OrbitControls
+- `Center` — center geometry
+- `ContactShadows` — soft ground shadows
+- `Environment` — HDRI lighting
+- `Float` — floating motion
+- `Html` — overlay HTML on 3D objects
+- `Loader` — loading screen
+- `MeshDistortMaterial` — wobble material
+- `MeshWobbleMaterial` — wobble material
+- `OrbitControls` — camera controls
+- `PerspectiveCamera` — declarative camera
+- `RoundedBox` — rounded box geometry
+- `Sky` — procedural sky
+- `Sparkles` — particle sparkles
+- `Stars` — starfield
+- `Text` / `Text3D` — 2D/3D text
+- `useGLTF` — load GLTF models
+- `useTexture` — load textures
+- `useVideoTexture` — video as texture (great for video-on-3D)
+
+---
+
+### 9.11 React Spring
+
+**Purpose:** Spring-physics animation library. Alternative to Framer Motion for physics-based animations.
+
+**Install:** `bun add @react-spring/three @react-spring/web`
+
+**When to use:**
+- Physics-based animations (gravity, bounce)
+- 3D object animations with R3F
+- Gesture-driven animations
+
+**Pattern:**
+```tsx
+import { useSpring, animated } from "@react-spring/web";
+
+const [springs, api] = useSpring(() => ({
+  from: { scale: 1 },
+}));
+
+<animated.div
+  style={springs}
+  onMouseEnter={() => api.start({ scale: 1.2 })}
+  onMouseLeave={() => api.start({ scale: 1 })}
+/>
+```
+
+---
+
+### 9.12 Auto-Animate
+
+**Purpose:** Zero-config animations for layout changes. Add a single `useAutoAnimate` hook and layout changes animate automatically.
+
+**Install:** `bun add @formkit/auto-animate`
+
+**When to use:**
+- Lists that add/remove items
+- Grid layouts that reflow
+- Anywhere you want "just animate it" without writing animation code
+
+**Pattern:**
+```tsx
+import { useAutoAnimate } from "@formkit/auto-animate";
+
+const [ref] = useAutoAnimate();
+
+<ul ref={ref}>
+  {items.map(item => <li key={item.id}>{item.name}</li>)}
+</ul>
+```
+
+---
+
+### 9.13 Vercel AI SDK
+
+**Purpose:** Streaming AI responses, tool calling, and structured outputs. For AI-powered features (chatbots, content generation).
+
+**Install:** `bun add ai @ai-sdk/openai @ai-sdk/anthropic`
+
+**When to use:**
+- In-app AI chatbot
+- AI-powered content generation
+- Tool calling (let AI trigger functions)
+- Streaming responses
+
+**Pattern:**
+```tsx
+import { streamText } from "ai";
+import { openai } from "@ai-sdk/openai";
+
+const { textStream } = await streamText({
+  model: openai("gpt-4o"),
+  prompt: "Write a hero headline for a dev studio",
+});
+
+for await (const chunk of textStream) {
+  // stream chunks to UI
+}
+```
+
+---
+
+### 9.14 shadcn/ui blocks
+
+**Purpose:** Pre-built section templates (hero, pricing, dashboard) using shadcn/ui components. Copy-paste entire sections.
+
+**Source:** https://ui.shadcn.com/blocks
+
+**When to use:**
+- Need a complete section fast
+- Want a verified accessible layout
+- Starting point for customization
+
+---
+
+### 9.15 Aceternity UI
+
+**Purpose:** Free open-source animated React components. The "magic components" registry — spotlight cards, glowing borders, parallax scrolls.
+
+**Source:** https://ui.aceternity.com
+
+**When to use:**
+- Spotlight card (mouse-following spotlight effect)
+- Glowing border effect
+- Parallax scroll components
+- 3D card hover effects
+- Background beams / gradient effects
+
+---
+
+### 9.16 Magic UI
+
+**Purpose:** 150+ free animated React components built with Framer Motion + Tailwind. The largest open-source animation library.
+
+**Source:** https://magicui.design
+
+**When to use:**
+- Animated text (typewriter, gradient, reveal)
+- Backgrounds (grid, dots, particles)
+- Interactive components (magnetic buttons, globe)
+- Marquees, tickers, scrollers
+
+---
+
+### 9.17 Tailwind CSS Animations
+
+**Purpose:** CSS-only animations via Tailwind utilities. No JS needed for simple effects.
+
+**Already installed:** `"tw-animate-css": "^1.3.5"`.
+
+**When to use:**
+- Simple fade-ins
+- Hover effects
+- Pulsing / bouncing / spinning
+- Page enter animations
+
+**Utilities:**
+- `animate-fade-in`, `animate-fade-out`
+- `animate-slide-up`, `animate-slide-down`
+- `animate-pulse`, `animate-bounce`, `animate-spin`
+- `animate-ping` (radar pulse)
+
+---
+
+### 9.18 React Player
+
+**Purpose:** Play videos (YouTube, Vimeo, MP4) in React with a unified API.
+
+**Install:** `bun add react-player`
+
+**When to use:**
+- Background video in hero
+- Embedded demo videos
+- Autoplaying muted loops
+
+**Pattern:**
+```tsx
+import ReactPlayer from "react-player";
+
+<ReactPlayer
+  url="/hero-bg.mp4"
+  playing
+  loop
+  muted
+  width="100%"
+  height="100%"
+/>
+```
+
+---
+
+### 9.19 Video.js
+
+**Purpose:** Full-featured video player with custom controls, HLS support, and plugins.
+
+**Install:** `bun add video.js`
+
+**When to use:**
+- Need custom video controls
+- Streaming (HLS/DASH)
+- Accessibility features (captions, audio descriptions)
+
+---
+
+### 9.20 PicoGL.js
+
+**Purpose:** Minimal WebGL2 library. Lower-level than Three.js for custom rendering pipelines.
+
+**When to use:**
+- Performance-critical WebGL
+- Custom rendering pipelines
+- When Three.js is too heavy
+
+---
+
+### 9.21 OGL (Minimal WebGL)
+
+**Purpose:** Minimal, fast WebGL library. ~6KB gzipped. Good for simple 3D effects without Three.js's overhead.
+
+**When to use:**
+- Simple 3D effects (particles, gradients)
+- Performance-critical animations
+- When you want to hand-write shaders
+
+---
+
+### 9.22 Curtains.js
+
+**Purpose:** WebGL plane distortion effects. Turn DOM elements into WebGL planes with shaders.
+
+**When to use:**
+- Image hover distortion
+- Page transition effects
+- Scroll-based distortion
+
+---
+
+### 9.23 Atropos
+
+**Purpose:** 3D parallax hover effect. Tilt elements in 3D space following the mouse.
+
+**Install:** `bun add atropus`
+
+**When to use:**
+- 3D card tilt effects
+- Parallax layers on hover
+- Depth illusion on flat elements
+
+---
+
+### 9.24 Tilt.js
+
+**Purpose:** Lightweight 3D tilt on hover. Simpler than Atropos, no dependencies.
+
+**Install:** `bun add vanilla-tilt`
+
+**When to use:**
+- Quick card tilt effects
+- When you don't need layers
+
+---
+
+### 9.25 Splitting.js
+
+**Purpose:** Split text into chars/words/lines for staggered animations.
+
+**Install:** `bun add splitting`
+
+**When to use:**
+- Word-by-word text reveal
+- Character animation
+- Line-by-line fade in
+
+---
+
+### 9.26 Kute.js
+
+**Purpose:** Cross-browser SVG + text morphing animation library.
+
+**Install:** `bun add kute.js`
+
+**When to use:**
+- SVG path morphing
+- Shape transitions
+- Text-to-text morphing
+
+---
+
+### 9.27 Anime.js
+
+**Purpose:** Lightweight animation library. Alternative to GSAP for simpler use cases.
+
+**Install:** `bun add animejs`
+
+**When to use:**
+- Simple animations without GSAP's weight
+- SVG animations
+- Number counters
+
+---
+
+### 9.28 Barba.js
+
+**Purpose:** Page transition library for SPA-like navigation in multi-page sites.
+
+**Install:** `bun add @barba/core`
+
+**When to use:**
+- Smooth page transitions
+- Preload + fade between pages
+- Coordinate with GSAP for transition animations
+
+---
+
+### 9.29 Highway
+
+**Purpose:** Modern page transition library. Alternative to Barba.js.
+
+**Install:** `bun add @dogstudio/highway`
+
+**When to use:**
+- SPA-style transitions in MPA
+- Custom transition classes
+
+---
+
+### 9.30 React Joyride
+
+**Purpose:** Guided product tours. Walk users through your UI step by step.
+
+**Install:** `bun add react-joyride`
+
+**When to use:**
+- Onboarding flows
+- Feature announcements
+- Help tooltips
+
+---
+
+### 9.31 Driver.js
+
+**Purpose:** Lightweight tour library. 5KB — much smaller than React Joyride.
+
+**Install:** `bun add driver.js`
+
+**When to use:**
+- Simple tours
+- Spotlight effects
+- Feature highlights
+
+---
+
+### 9.32 AOS (Animate On Scroll)
+
+**Purpose:** CSS-only scroll animations. Add `data-aos="fade-up"` and you're done.
+
+**Install:** `bun add aos`
+
+**When to use:**
+- Quick scroll reveal animations
+- When you don't need GSAP's complexity
+
+---
+
+### 9.33 ScrollReveal
+
+**Purpose:** Similar to AOS but with more configuration. JS-based scroll animations.
+
+**Install:** `bun add scrollreveal`
+
+**When to use:**
+- Custom scroll animations
+- Sequenced reveals
+
+---
+
+### 9.34 Embla Carousel
+
+**Purpose:** Lightweight, extensible carousel library. Already used in shadcn/ui.
+
+**Already installed:** `"embla-carousel-react": "^8.6.0"`.
+
+**When to use:**
+- Image carousels
+- Testimonial sliders
+- Product galleries
+
+---
+
+### 9.35 Swiper
+
+**Purpose:** Most modern mobile touch slider. Hardware-accelerated, lazy loading.
+
+**Install:** `bun add swiper`
+
+**When to use:**
+- Mobile-first carousels
+- Image galleries with zoom
+- Coverflow effects
+
+---
+
+### 9.36 keen-slider
+
+**Purpose:** Advanced slider library. Touch-friendly, no dependencies.
+
+**Install:** `bun add keen-slider`
+
+**When to use:**
+- Custom slider behaviors
+- Performance-critical carousels
+
+---
+
+### 9.37 React Hook Form + Zod
+
+**Purpose:** Type-safe form validation. Already used in QuackForge's booking modal.
+
+**Already installed:** `"react-hook-form": "^7.60.0"`, `"zod": "^4.0.2"`, `"@hookform/resolvers": "^5.1.1"`.
+
+**When to use:**
+- Any form (login, signup, booking)
+- Type-safe validation
+- Server-side validation reuse
+
+---
+
+### 9.38 TanStack Query
+
+**Purpose:** Data fetching + caching. Already installed.
+
+**Already installed:** `"@tanstack/react-query": "^5.82.0"`.
+
+**When to use:**
+- API data fetching
+- Optimistic updates
+- Background refetching
+
+---
+
+### 9.39 Zustand
+
+**Purpose:** Lightweight state management. Already installed.
+
+**Already installed:** `"zustand": "^5.0.6"`.
+
+**When to use:**
+- Global state (theme, currency, cart)
+- When Redux is overkill
+- Persisted state (localStorage)
+
+---
+
+### 9.40 DnD Kit
+
+**Purpose:** Drag-and-drop for React. Already installed.
+
+**Already installed:** `"@dnd-kit/core": "^6.3.1"`, `"@dnd-kit/sortable": "^10.0.0"`.
+
+**When to use:**
+- Sortable lists
+- Drag-and-drop boards
+- Resizable panels
+
+---
+
+### 9.41 Recharts
+
+**Purpose:** Composable charting library. Already installed.
+
+**Already installed:** `"recharts": "^2.15.4"`.
+
+**When to use:**
+- Line, bar, pie, area charts
+- Data dashboards
+- Analytics visualizations
+
+---
+
+### 9.42 MDX Editor
+
+**Purpose:** Rich text editor with Markdown support. Already installed.
+
+**Already installed:** `"@mdxeditor/editor": "^3.39.1"`.
+
+**When to use:**
+- Blog post editor
+- CMS content editing
+- Comment boxes
+
+---
+
+### 9.43 Sonner
+
+**Purpose:** Toast notifications. Already installed.
+
+**Already installed:** `"sonner": "^2.0.6"`.
+
+**When to use:**
+- Success/error toasts
+- Action notifications
+
+---
+
+### 9.44 Vaul
+
+**Purpose:** Drawer component for mobile. Already installed.
+
+**Already installed:** `"vaul": "^1.1.2"`.
+
+**When to use:**
+- Mobile navigation drawers
+- Bottom sheet modals
+
+---
+
+### 9.45 Radix UI
+
+**Purpose:** Headless, accessible component primitives. Foundation of shadcn/ui. Already installed (multiple packages).
+
+**When to use:**
+- Accessible dropdowns, dialogs, popovers
+- Custom design system components
+- When you need full control over styling
+
+---
+
+### 9.46 cmdk
+
+**Purpose:** Command palette component (⌘K menu). Already installed.
+
+**Already installed:** `"cmdk": "^1.1.1"`.
+
+**When to use:**
+- Command palette (like Linear, Raycast)
+- Quick search
+- Keyboard-first navigation
+
+---
+
+### 9.47 next-themes
+
+**Purpose:** Theme switching (dark/light/system). Already installed.
+
+**Already installed:** `"next-themes": "^0.4.6"`.
+
+**When to use:**
+- Dark mode toggle
+- System theme detection
+- Per-route theme overrides
+
+---
+
+### 9.48 next-intl
+
+**Purpose:** Internationalization for Next.js. Already installed.
+
+**Already installed:** `"next-intl": "^4.3.4"`.
+
+**When to use:**
+- Multi-language sites
+- Translation management
+- Locale routing
+
+---
+
+### 9.49 sharp
+
+**Purpose:** High-performance image processing. Already installed.
+
+**Already installed:** `"sharp": "^0.34.3"`.
+
+**When to use:**
+- Image optimization
+- Resizing / cropping
+- Format conversion
+
+---
+
+### 9.50 Stripe
+
+**Purpose:** Payment processing. Already listed in `package.json` deps (for future use).
+
+**When to use:**
+- Checkout flows
+- Subscriptions
+- One-time payments
+
+---
+
+### 9.51 Playwright
+
+**Purpose:** End-to-end testing + browser automation. Already used heavily in this project for visual verification.
+
+**Already used:** `scripts/19_fast_audit.py`, `scripts/20_interaction_audit.py`, etc.
+
+**When to use:**
+- Visual regression testing
+- E2E tests
+- Screenshot verification
+- Capturing console errors
+
+---
+
+### 9.52 Vitest
+
+**Purpose:** Fast unit test framework for Vite/Next.js. The modern Jest.
+
+**Install:** `bun add -D vitest @testing-library/react @testing-library/jest-dom`
+
+**When to use:**
+- Unit testing components
+- Hook testing
+- Snapshot testing
+
+---
+
+### 9.53 Testing Library
+
+**Purpose:** Test React components the way users use them. Pairs with Vitest.
+
+**When to use:**
+- Component tests
+- Accessibility testing
+- Integration tests
+
+---
+
+### 9.54 ESLint + Prettier
+
+**Purpose:** Linting + code formatting. Already configured.
+
+**Already installed:** `"eslint": "^9"`, `"eslint-config-next": "^16.1.1"`.
+
+**When to use:**
+- Catch bugs before runtime
+- Enforce code style
+- Auto-fix on save
+
+---
+
+### 9.55 Husky + lint-staged
+
+**Purpose:** Pre-commit hooks. Run lint/tests before code is committed.
+
+**Install:** `bun add -D husky lint-staged`
+
+**When to use:**
+- Enforce code quality
+- Prevent broken commits
+- Auto-format on commit
+
+---
+
+### 9.56 GitHub Actions (CI/CD)
+
+**Purpose:** Automated workflows for build, test, deploy.
+
+**When to use:**
+- Auto-deploy on push (already configured for Vercel)
+- Run tests on PR
+- Scheduled tasks
+- Release automation
+
+---
+
+### 9.57 Changesets
+
+**Purpose:** Manage versions + changelogs for monorepos.
+
+**Install:** `bun add -D @changesets/cli`
+
+**When to use:**
+- Versioning multiple packages
+- Auto-generated changelogs
+- Release management
+
+---
+
+### 9.58 Turbo (Monorepo)
+
+**Purpose:** High-performance build system for monorepos.
+
+**Install:** `bun add -D turbo`
+
+**When to use:**
+- Multi-package repos
+- Cached builds
+- Parallel task execution
+
+---
+
+### 9.59 pnpm
+
+**Purpose:** Fast, disk-efficient package manager. Alternative to npm/yarn/bun.
+
+**When to use:**
+- Monorepos (workspaces)
+- Disk space savings (symlinked node_modules)
+- Strict dependency resolution
+
+---
+
+### 9.60 Bun
+
+**Purpose:** All-in-one JavaScript runtime + package manager + bundler. Already used.
+
+**Already used:** `bun.lock` present, scripts use `bun run`.
+
+**When to use:**
+- Fast installs (10x faster than npm)
+- Native test runner
+- Native bundler
+
