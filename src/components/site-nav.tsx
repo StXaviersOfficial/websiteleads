@@ -28,7 +28,17 @@ export function SiteNav() {
     const onScroll = () => setScrolled(window.scrollY > 12);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+
+    // Close mobile menu when resizing to desktop viewport
+    const onResize = () => {
+      if (window.innerWidth >= 1024) setOpen(false);
+    };
+    window.addEventListener("resize", onResize);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
+    };
   }, []);
 
   // Lock body scroll when mobile menu is open
@@ -124,10 +134,10 @@ export function SiteNav() {
         </div>
       </header>
 
-      {/* Mobile menu — half-screen from very top, overrides logo */}
+      {/* Mobile menu — half-screen from very top, overrides logo. Hidden on desktop. */}
       <AnimatePresence>
         {open && (
-          <>
+          <div className="lg:hidden">
             {/* Backdrop to catch outside clicks */}
             <motion.div
               initial={{ opacity: 0 }}
@@ -210,7 +220,7 @@ export function SiteNav() {
               </motion.div>
             </div>
           </motion.div>
-          </>
+          </div>
         )}
       </AnimatePresence>
     </>

@@ -425,34 +425,33 @@ html, body {
   cursor: pointer;
 }
 
-/* The popup text — bottom-right, next to Discord logo, smaller, blur-locks background */
+/* The popup text — small toast-style, doesn't block the page */
 .discord-fab-popup {
   position: fixed;
-  inset: 0;
+  bottom: 100px;
+  right: 24px;
   z-index: 60;
-  background: rgba(2, 6, 15, 0.92);
-  pointer-events: auto;
-  cursor: pointer;
+  width: 280px;
+  cursor: default;
+  pointer-events: none;
 }
 /* Discord button — always above popup backdrop */
 .discord-fab-btn {
   z-index: 61;
 }
 .discord-fab-popup-text {
-  position: fixed;
-  bottom: 100px;
-  right: 24px;
+  position: relative;
   background: var(--card);
   border: 1px solid color-mix(in srgb, var(--primary) 0.5, transparent);
   border-radius: 12px;
   padding: 14px 16px;
-  max-width: 280px;
+  width: 280px;
   box-shadow:
     0 0 0 1px color-mix(in srgb, var(--primary) 0.3, transparent),
     0 0 40px -8px color-mix(in srgb, var(--primary) 0.5, transparent),
     0 12px 40px -10px rgba(0, 0, 0, 0.9);
   cursor: default;
-  pointer-events: none; /* let the backdrop catch clicks */
+  pointer-events: auto;
 }
 .discord-fab-popup-x {
   position: absolute;

@@ -24,14 +24,7 @@ export function DiscordFab() {
     return () => clearTimeout(t);
   }, [dismissed]);
 
-  React.useEffect(() => {
-    if (showPopup) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => { document.body.style.overflow = ""; };
-  }, [showPopup]);
+  // Body scroll lock removed — popup is now toast-style and doesn't need it
 
   // Scroll hide/show — SAME timing for both buttons
   React.useEffect(() => {
@@ -80,27 +73,27 @@ export function DiscordFab() {
 
   return (
     <>
-      {/* Popup */}
+      {/* Popup — toast style, doesn't block page interactions */}
       <AnimatePresence>
         {showPopup && (
           <motion.div
             className="discord-fab-popup"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.9 }}
             transition={sharedTransition}
-            onClick={dismissPopup}
           >
             <motion.div
               className="discord-fab-popup-text"
-              initial={{ opacity: 0, x: 20, scale: 0.9 }}
-              animate={{ opacity: 1, x: 0, scale: 1 }}
-              exit={{ opacity: 0, x: 20, scale: 0.9 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               transition={sharedTransition}
+              style={{ pointerEvents: "auto" }}
             >
               <button
                 onClick={(e) => { e.stopPropagation(); dismissPopup(); }}
-                aria-label="Dismiss"
+                aria-label="Dismiss popup"
                 className="discord-fab-popup-x"
               >
                 <X className="h-2.5 w-2.5" />
