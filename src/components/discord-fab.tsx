@@ -24,9 +24,17 @@ export function DiscordFab() {
     return () => clearTimeout(t);
   }, [dismissed]);
 
-  // Body scroll lock removed — popup is now toast-style and doesn't need it
+  // Lock body scroll + hide Book a Project FAB while popup is open
+  React.useEffect(() => {
+    if (showPopup) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [showPopup]);
 
-  // Scroll hide/show — SAME timing for both buttons
+  // Scroll hide/show — SAME timing for both buttons (disabled while popup is open)
   React.useEffect(() => {
     let scrollTimer: ReturnType<typeof setTimeout>;
     let isScrolling = false;
@@ -73,23 +81,23 @@ export function DiscordFab() {
 
   return (
     <>
-      {/* Popup — toast style, doesn't block page interactions */}
+      {/* Popup overlay — glass blur, locks page until dismissed */}
       <AnimatePresence>
         {showPopup && (
           <motion.div
             className="discord-fab-popup"
-            initial={{ opacity: 0, y: 20, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.9 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             transition={sharedTransition}
+            onClick={dismissPopup}
           >
             <motion.div
               className="discord-fab-popup-text"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              initial={{ opacity: 0, x: 20, scale: 0.9 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{ opacity: 0, x: 20, scale: 0.9 }}
               transition={sharedTransition}
-              style={{ pointerEvents: "auto" }}
             >
               <button
                 onClick={(e) => { e.stopPropagation(); dismissPopup(); }}
@@ -116,9 +124,9 @@ export function DiscordFab() {
         )}
       </AnimatePresence>
 
-      {/* Book a Project — z-index 50 (below popup backdrop z-index 60 → gets blurred) */}
+      {/* Book a Project — hidden while popup is open (z-index 50, below overlay z-60) */}
       <AnimatePresence>
-        {fabVisible && (
+        {fabVisible && !showPopup && (
           <motion.div
             style={{ position: "fixed", bottom: "100px", right: "24px", zIndex: 50, width: "64px", height: "64px" }}
             initial={sharedInitial}
