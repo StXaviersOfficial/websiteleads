@@ -28,19 +28,34 @@ export function DiscordFab() {
   React.useEffect(() => {
     if (showPopup) {
       document.body.style.overflow = "hidden";
+      // Also prevent scroll on touch devices + keyboard
+      const preventScroll = (e: TouchEvent) => {
+        if (e.touches.length > 1) return; // allow pinch-zoom
+        e.preventDefault();
+      };
+      const preventKeyboardScroll = (e: KeyboardEvent) => {
+        const scrollKeys = ["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End", " "];
+        if (scrollKeys.includes(e.key)) e.preventDefault();
+      };
+      document.addEventListener("touchmove", preventScroll, { passive: false });
+      document.addEventListener("keydown", preventKeyboardScroll);
+      return () => {
+        document.body.style.overflow = "";
+        document.removeEventListener("touchmove", preventScroll);
+        document.removeEventListener("keydown", preventKeyboardScroll);
+      };
     } else {
       document.body.style.overflow = "";
     }
-    return () => { document.body.style.overflow = ""; };
   }, [showPopup]);
 
-  // Scroll hide/show — SAME timing for both buttons (disabled while popup is open)
+  // Scroll hide/show — disabled entirely while popup is open (popup locks scroll anyway)
   React.useEffect(() => {
     let scrollTimer: ReturnType<typeof setTimeout>;
     let isScrolling = false;
 
     const onScroll = () => {
-      if (showPopup) return;
+      if (showPopup) return; // popup is open — don't touch FAB visibility
       if (!isScrolling) {
         setFabVisible(false);
         isScrolling = true;
@@ -57,6 +72,11 @@ export function DiscordFab() {
       window.removeEventListener("scroll", onScroll);
       clearTimeout(scrollTimer);
     };
+  }, [showPopup]);
+
+  // Force FAB visible whenever popup is showing (overrides any prior hide state)
+  React.useEffect(() => {
+    if (showPopup) setFabVisible(true);
   }, [showPopup]);
 
   // Book a Project cycling
@@ -104,9 +124,9 @@ export function DiscordFab() {
                 aria-label="Dismiss popup"
                 className="discord-fab-popup-x"
               >
-                <X className="h-2.5 w-2.5" />
+                <X className="h-3 w-3" />
               </button>
-              <p className="text-xs text-foreground leading-relaxed">
+              <p className="text-sm text-foreground leading-relaxed">
                 Want more info or want to book demos or book projects?{" "}
                 <a
                   href="https://discord.gg/VhKgEetwr8"
