@@ -27,25 +27,38 @@ export function DiscordFab() {
   // Lock body scroll + hide Book a Project FAB while popup is open
   React.useEffect(() => {
     if (showPopup) {
+      // Record current scroll position so we can restore it after unlock
+      const scrollY = window.scrollY;
+      const scrollX = window.scrollX;
+      // position:fixed on body fully prevents scrolling (overflow:hidden alone
+      // doesn't work on all browsers, especially with keyboard / touch)
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.left = `-${scrollX}px`;
+      document.body.style.width = "100%";
       document.body.style.overflow = "hidden";
-      // Also prevent scroll on touch devices + keyboard
-      const preventScroll = (e: TouchEvent) => {
-        if (e.touches.length > 1) return; // allow pinch-zoom
-        e.preventDefault();
-      };
+      document.documentElement.style.overflow = "hidden";
+
       const preventKeyboardScroll = (e: KeyboardEvent) => {
         const scrollKeys = ["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End", " "];
         if (scrollKeys.includes(e.key)) e.preventDefault();
       };
-      document.addEventListener("touchmove", preventScroll, { passive: false });
       document.addEventListener("keydown", preventKeyboardScroll);
+
       return () => {
+        // Restore
+        document.body.style.position = "";
+        document.body.style.top = "";
+        document.body.style.left = "";
+        document.body.style.width = "";
         document.body.style.overflow = "";
-        document.removeEventListener("touchmove", preventScroll);
+        document.documentElement.style.overflow = "";
+        window.scrollTo(scrollX, scrollY);
         document.removeEventListener("keydown", preventKeyboardScroll);
       };
     } else {
       document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
     }
   }, [showPopup]);
 
