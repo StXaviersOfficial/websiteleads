@@ -81,11 +81,11 @@ export function DiscordFab() {
 
   return (
     <>
-      {/* Popup overlay — glass blur, locks page until dismissed */}
+      {/* Popup overlay — heavy glass blur, locks page until dismissed */}
       <AnimatePresence>
         {showPopup && (
           <motion.div
-            className="discord-fab-popup backdrop-blur-md backdrop-saturate-125"
+            className="discord-fab-popup backdrop-blur-2xl backdrop-saturate-150 backdrop-brightness-110"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -93,7 +93,7 @@ export function DiscordFab() {
             onClick={dismissPopup}
           >
             <motion.div
-              className="discord-fab-popup-text backdrop-blur-xl backdrop-saturate-150"
+              className="discord-fab-popup-text backdrop-blur-2xl backdrop-saturate-200"
               initial={{ opacity: 0, x: 20, scale: 0.9 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
               exit={{ opacity: 0, x: 20, scale: 0.9 }}
