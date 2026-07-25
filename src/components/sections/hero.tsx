@@ -100,11 +100,11 @@ export function Hero() {
 
 function Stat({ value, suffix, label }: { value: number; suffix: string; label: string }) {
   return (
-    <div className="flex flex-col">
-      <span className="text-2xl sm:text-3xl font-semibold tracking-tight font-mono text-primary">
+    <div className="flex flex-col group/stat cursor-default">
+      <span className="text-2xl sm:text-3xl font-semibold tracking-tight font-mono text-primary transition-all duration-300 group-hover/stat:scale-110 group-hover/stat:text-gradient-cyan">
         <Counter value={value} suffix={suffix} />
       </span>
-      <span className="text-xs text-muted-foreground mt-0.5">{label}</span>
+      <span className="text-xs text-muted-foreground mt-0.5 transition-colors duration-300 group-hover/stat:text-foreground/70">{label}</span>
     </div>
   );
 }

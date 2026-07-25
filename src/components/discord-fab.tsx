@@ -132,6 +132,7 @@ export function DiscordFab() {
             animate={sharedAnimate}
             exit={sharedExit}
             transition={sharedTransition}
+            title="Book a Project"
           >
             <div style={{ position: "relative", width: "64px", height: "64px" }}>
               <AnimatePresence mode="wait">
@@ -145,6 +146,8 @@ export function DiscordFab() {
                     transition={sharedTransition}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
+                    aria-label="Book a Project"
+                    title="Book a Project — opens the booking form"
                     className="flex items-center justify-center px-5 h-16 rounded-full whitespace-nowrap"
                     style={{
                       position: "absolute",
@@ -170,6 +173,7 @@ export function DiscordFab() {
                     whileHover={{ scale: 1.08 }}
                     whileTap={{ scale: 0.95 }}
                     aria-label="Book a Project"
+                    title="Book a Project — opens the booking form"
                     className="flex items-center justify-center rounded-full overflow-hidden"
                     style={{
                       position: "absolute",
@@ -210,6 +214,7 @@ export function DiscordFab() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Join our Discord server"
+              title="Join our Discord server — fastest way to reach us"
               className="discord-fab-btn"
               whileHover={{ scale: 1.08 }}
               whileTap={{ scale: 0.95 }}

@@ -43,6 +43,19 @@ const SEQUENCE: Line[] = [
 export function HeroCodeEditor() {
   const [visibleLines, setVisibleLines] = useState<number>(0);
   const [charIndex, setCharIndex] = useState<number>(0);
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+
+  // Subtle 3D tilt that follows mouse
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const dx = (e.clientX - cx) / (rect.width / 2);
+    const dy = (e.clientY - cy) / (rect.height / 2);
+    setTilt({ x: -dy * 4, y: dx * 4 });
+  };
+
+  const handleMouseLeave = () => setTilt({ x: 0, y: 0 });
 
   useEffect(() => {
     if (visibleLines >= SEQUENCE.length) {
@@ -78,9 +91,13 @@ export function HeroCodeEditor() {
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       className="relative w-full max-w-[480px] mx-auto aspect-[4/3] rounded-2xl border border-primary/30 bg-card/80 backdrop-blur shadow-2xl overflow-hidden"
       style={{
-        boxShadow: "0 20px 60px -15px rgba(34,211,238,0.25), 0 0 0 1px rgba(34,211,238,0.1)",
+        transform: `perspective(1200px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+        transition: "transform 0.2s cubic-bezier(0.22, 1, 0.36, 1)",
+        boxShadow: "0 20px 60px -15px rgba(34,211,238,0.35), 0 0 0 1px rgba(34,211,238,0.12)",
       }}
     >
       {/* Editor title bar */}
