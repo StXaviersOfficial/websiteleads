@@ -853,9 +853,198 @@ If you find yourself violating a skill, stop. Re-read the relevant section. Adju
 | 20 | Agent Browser | Frontend | ✅ Active |
 | 21 | UI/UX Pro | Specialized | ✅ Active |
 | 22 | Remotion | Specialized | ✅ Active |
+| 23 | 21st.dev | Frontend | ✅ Active |
+| 24 | Framer Motion | Specialized | ✅ Active |
 
 ---
 
 ## 7. Changelog
 
 - **2026-07-25** — Initial installation of all 22 skills. Document created, enforced from this commit forward.
+- **2026-07-25 (turn 18)** — Added skill #23 (21st.dev) and #24 (Framer Motion).
+
+---
+
+## 8. Additional Specialized Skills
+
+### 8.1 21st.dev
+
+**Purpose:** Curated library of high-quality, copy-paste React components built with Tailwind CSS and Framer Motion. The "magic components" registry for modern SaaS UIs.
+
+**Source:** https://21st.dev — browse, copy, paste. No npm install needed for individual components.
+
+**When to use:**
+- You need a polished hero section, pricing table, or feature grid fast.
+- You want production-quality animations without writing them from scratch.
+- You're prototyping and want to skip the design phase.
+- You want to study modern SaaS UI patterns.
+
+**Component categories:**
+- **Heroes** — full-screen, split, centered, with video/animation
+- **Features** — bento grids, card stacks, hover effects
+- **Pricing** — tier cards, comparison tables, toggles
+- **Testimonials** — carousels, masonry, grid
+- **CTAs** — buttons, banners, sticky bars
+- **Footers** — minimal, expanded, with newsletter
+- **Navbars** — sticky, transparent, mega-menu
+- **Loaders** — skeletons, spinners, progress bars
+- **Backgrounds** — gradients, particles, grid patterns
+- **Text** — reveals, gradients, typewriter, counter
+
+**Usage workflow:**
+1. Browse https://21st.dev for the component you need.
+2. Click "Copy code" on the component.
+3. Paste into `src/components/<name>.tsx`.
+4. Install any missing dependencies (the component page lists them).
+5. Customize colors, copy, and props to match QuackForge's brand.
+6. Verify in the browser via Playwright screenshot.
+
+**Integration with QuackForge:**
+- Brand colors: replace any hardcoded colors with `var(--primary)` (#22D3EE) and `var(--background)` (#0A1830).
+- Fonts: components use Inter by default — swap to Geist Sans (`var(--font-geist-sans)`) for consistency.
+- Animations: most use Framer Motion — keep the animations but adjust easing to `cubic-bezier(0.4, 0, 0.2, 1)` (QuackForge's `--ease-brand`).
+- Dark mode: most 21st.dev components are dark-first, matching QuackForge's aesthetic.
+
+**Anti-patterns:**
+- Don't copy-paste without customizing — generic components look generic.
+- Don't install every component — only what you actually use.
+- Don't ignore accessibility — verify keyboard nav and screen reader support.
+- Don't skip the dependency check — missing packages cause runtime errors.
+
+**File location:** Downloaded components go in `src/components/sections/` (for page sections) or `src/components/ui/` (for primitives).
+
+---
+
+### 8.2 Framer Motion
+
+**Purpose:** Production-ready motion library for React. The animation engine powering QuackForge's hero, pricing cards, FAQ accordion, and all micro-interactions.
+
+**Already installed:** `"framer-motion": "^12.23.2"` in `package.json`.
+
+**Core APIs (cheat sheet):**
+
+```tsx
+import { motion, AnimatePresence, useScroll, useTransform, useSpring, useInView } from "framer-motion";
+
+// 1. Basic animation — fade up on mount
+<motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+>
+  Content
+</motion.div>
+
+// 2. Scroll-triggered animation — animate when in viewport
+<motion.div
+  initial={{ opacity: 0, y: 20 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, margin: "-60px" }}
+  transition={{ duration: 0.6, delay: 0.1 }}
+>
+  Content
+</motion.div>
+
+// 3. Stagger children
+<motion.div
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true }}
+  variants={{
+    hidden: {},
+    visible: { transition: { staggerChildren: 0.1 } },
+  }}
+>
+  <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}>
+    Child 1
+  </motion.div>
+  <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}>
+    Child 2
+  </motion.div>
+</motion.div>
+
+// 4. Hover / tap interactions
+<motion.button
+  whileHover={{ scale: 1.05, y: -2 }}
+  whileTap={{ scale: 0.95 }}
+  transition={{ type: "spring", stiffness: 300, damping: 15 }}
+>
+  Click me
+</motion.button>
+
+// 5. AnimatePresence — mount/unmount animations
+<AnimatePresence>
+  {isVisible && (
+    <motion.div
+      initial={{ opacity: 0, height: 0 }}
+      animate={{ opacity: 1, height: "auto" }}
+      exit={{ opacity: 0, height: 0 }}
+    >
+      Content
+    </motion.div>
+  )}
+</AnimatePresence>
+
+// 6. Scroll-linked progress bar
+const { scrollYProgress } = useScroll();
+const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
+<motion.div style={{ scaleX }} className="fixed top-0 left-0 right-0 h-1 bg-primary" />
+
+// 7. Spring physics
+const x = useSpring(0, { stiffness: 200, damping: 20 });
+<motion.div drag="x" style={{ x }} />
+
+// 8. Layout animations
+<motion.div layout>Content that animates when layout changes</motion.div>
+```
+
+**QuackForge motion primitives** (`src/components/motion-primitives.tsx`):
+- `StaggerGroup` — container that staggers children
+- `FadeUp` — fade + translate Y on scroll-in
+- `FadeScale` — fade + scale on scroll-in
+- `Magnetic` — element follows cursor slightly
+- `TiltCard` — 3D tilt on hover
+- `TextReveal` — word-by-word text reveal
+- `Counter` — animated number counter
+- `Marquee` — infinite scrolling row
+- `Floating` — gentle up/down float
+- `ScrollProgress` — top progress bar
+- `CustomCursor` — custom cursor with ring
+
+**Easing tokens:**
+- `--ease-brand: cubic-bezier(0.4, 0, 0.2, 1)` — QuackForge's default ease
+- `[0.22, 1, 0.36, 1]` — ease-out-quint (use for entrances)
+- `[0.4, 0, 0.2, 1]` — ease-in-out (use for state changes)
+- `type: "spring", stiffness: 280, damping: 28` — spring (use for interactions)
+
+**Duration tokens:**
+- `0.15s` — micro-interactions (hover, focus)
+- `0.3s` — state changes (modal open, accordion expand)
+- `0.6s` — entrance animations (fade up on scroll)
+- `0.8s+` — hero / scene transitions
+
+**Performance rules:**
+- Use `transform` and `opacity` only — never animate `width`, `height`, `top`, `left` (causes layout thrash).
+- Add `will-change: transform` on animated elements that move a lot.
+- Use `viewport={{ once: true }}` on scroll animations — don't re-animate on every scroll.
+- Limit concurrent animations to ~20 — more causes jank on low-end devices.
+- Respect `prefers-reduced-motion` — wrap motion in a check:
+  ```tsx
+  const prefersReducedMotion = useReducedMotion();
+  <motion.div animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }} />
+  ```
+
+**Common patterns at QuackForge:**
+- **Card hover lift**: `whileHover={{ y: -4, scale: 1.02 }}` + `transition={{ type: "spring", stiffness: 300, damping: 20 }}`
+- **Button press**: `whileTap={{ scale: 0.95 }}`
+- **Section entrance**: `initial={{ opacity: 0, y: 20 }}` + `whileInView={{ opacity: 1, y: 0 }}` + `viewport={{ once: true, margin: "-60px" }}`
+- **Accordion**: `AnimatePresence` + `animate={{ height: "auto", opacity: 1 }}` + `exit={{ height: 0, opacity: 0 }}`
+- **Playing card stack**: `position: absolute` + computed `transform`/`opacity`/`zIndex` + `transition={{ type: "spring", stiffness: 280, damping: 28 }}`
+
+**Debugging:**
+- If an animation doesn't run, check `whileInView` has `viewport={{ once: true }}` — without it, animations can fire before the element is visible.
+- If a layout animation jumps, add `layout` prop to the parent and `layoutId` to children.
+- If springs feel "bouncy", increase `damping` (e.g., 28 → 40).
+- If springs feel "sluggish", increase `stiffness` (e.g., 200 → 400).
+
+**File location:** Motion primitives live in `src/components/motion-primitives.tsx`. Page-specific animations stay in the section component (e.g., `hero.tsx`, `pricing.tsx`).
