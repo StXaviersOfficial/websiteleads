@@ -399,7 +399,7 @@ html, body {
 }
 .booking-modal-inner {
   width: 100%;
-  max-width: 720px;
+  height: 100%;
   margin: 0 auto;
   max-height: 100vh;
   overflow-y: auto;
