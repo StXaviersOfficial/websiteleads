@@ -1,0 +1,125 @@
+                                  VEO 3.1 QUALITY PROMPT — MOBILE (9:16, 1080×1920)
+                                  ================================================
+
+REFERENCE IMAGE PROVIDED: A square dark CPU chip centered in frame with glowing cyan circuit traces radiating symmetrically using 45-degree orthogonal PCB-trace geometry, extending to 85-90% of frame edges. Use as visual target for Scene 3 (recomposed for vertical).
+
+LOGO PROVIDED: The QuackForge logo. Use as reference for Scene 1 only — render as 3D extruded form, not flat, no text underneath.
+
+GENERAL SPECIFICATION:
+- Duration: exactly 10.0 seconds, 30fps, 300 frames
+- Resolution: 1080×1920 (9:16 vertical)
+- Silent: no audio
+- NO TEXT anywhere — all text overlaid in code later
+- NO logos except QuackForge 3D logo in Scene 1
+- NO humans, NO humanoid silhouettes — abstract geometric forms only
+- NO hard cuts — fluid morphs only
+- ONE continuous cinematic camera feel
+
+COLOR PALETTE (STRICT):
+- Background: deep navy-to-black (#0A1830 → #000000)
+- Primary accent: electric cyan (#22D3EE)
+- Highlight: white-cyan (#A5F3FC)
+- Metallic: dark titanium charcoal (#1a1a2e) with cyan underlighting
+- Crystalline: dichroic iridescent glass (cyan-dominant)
+- Gold ONLY on CPU pins (#D4AF37)
+- NO other colors
+
+LIGHTING: Volumetric god rays, depth of field, bokeh, film grain, atmospheric haze, specular highlights, ambient cyan glow, vignette.
+
+CAMERA: Slow ease-in-out, parallax, push in (S1) → orbit (S2-3) → pull back (S4) → hold + fade (S5).
+
+RECOMPOSED FOR VERTICAL: All key action reads top-to-bottom. Important elements centered. Composition optimized for phone screens.
+
+=====================================================================
+SCENE 1 (0:00-0:02, frames 1-60) — LOGO MATERIALIZES
+=====================================================================
+
+OPEN: Pitch-black void. Nothing visible for first 3 frames.
+
+FRAMES 4-20: Tiny luminous cyan particles drift inward from TOP and BOTTOM of vertical frame toward vertical center. ~150 particles total, varying brightness, slow movement.
+
+FRAMES 21-45: Particles coalesce at center, materialize into 3D extruded QuackForge logo. Dark titanium surface, glowing cyan edges, iridescent sheen. Logo ~30% of frame width, centered. Volumetric cyan god rays radiate outward.
+
+FRAMES 46-60: Logo pulses once with cyan light (peak at frame 53), emits cyan shockwave ring. Camera pushes in (~3% zoom). Logo is dominant anchor.
+
+NO TEXT. NO wordmark.
+
+=====================================================================
+SCENE 2 (0:02-0:04, frames 61-120) — LOGO MORPHS INTO CPU
+=====================================================================
+
+FRAMES 61-80: 3D logo fluidly morphs into square CPU viewed from 3/4 angle (15° X tilt, 10° Y tilt). Organic vertex morph, cyan edge-glow persists.
+
+FRAMES 81-120: CPU fully formed:
+- Square, ~25-30% of frame width, centered vertically in middle of tall frame
+- Dark charcoal PCB base (#1a1a2e)
+- Silver circuit traces etched, glowing cyan
+- Black center die, 4 gold components around it
+- Gold contact pins along all 4 edges
+- Cyan glow from traces
+- Hovers in dark space, slow rotation
+- Camera orbits slowly
+- Background: navy void, ~100 drifting cyan particles
+
+=====================================================================
+SCENE 3 (0:04-0:06, frames 121-180) — 24 WIRES POWER UP (VERTICAL)
+=====================================================================
+
+CRITICAL SCENE — match reference image recomposed for vertical.
+
+FRAMES 121-140: Wires extend from CPU's 4 edges. ORTHOGONAL PCB TRACES (straight + 45° mitered corners, NOT curves).
+
+EXACT WIRE SPECIFICATION (VERTICAL):
+- Total: EXACTLY 24 wires
+- Distribution for vertical frame: 6 wires TOP, 6 wires BOTTOM, 6 wires LEFT, 6 wires RIGHT
+  (Same 6-per-side as desktop, but TOP/BOTTOM wires are LONGER because frame is taller — they extend 85-90% of vertical distance. LEFT/RIGHT wires are shorter — 85-90% of horizontal distance.)
+- Symmetry: perfect 4-fold (bilateral + rotational)
+- Color: glowing cyan (#22D3EE), 2-3px thick, soft outer glow
+- Geometry: straight segment → 45° mitered corner → straight to frame edge
+- Length: 85-90% of distance from chip to frame edge (per side)
+- Endpoints: bright cyan node (~4px) with halo, ~50px clear radius for text overlay
+- Spacing: 6 wires per side evenly spaced
+
+FRAMES 141-160: Cyan energy pulses travel along wires from CPU outward to endpoints (data packets flowing). Pulses: bright cyan (#A5F3FC), ~30% frame width/sec. Endpoints brighten when pulse arrives. Staggered pulses. "Powering up" effect.
+
+FRAMES 161-180: All 24 wires fully extended, glowing steady. Endpoint nodes breathe (60-100% brightness over 2s, staggered). CPU slow rotation. Camera pulls back (~5% zoom). Background particles between wires. Symmetrical circuit mandala, vertical orientation.
+
+=====================================================================
+SCENE 4 (0:06-0:08, frames 181-240) — ABSTRACT TEAM NODES (VERTICAL STACK)
+=====================================================================
+
+FRAMES 181-200: 24 wires retract into CPU (reverse of Scene 3). Energy converges. CPU glows brighter.
+
+FRAMES 201-220: CPU splits into 4 abstract geometric shapes (NOT humans):
+- Shape 1 (top): faceted hexagonal prism, ~15% frame width
+- Shape 2 (upper-middle): twisted Möbius strip
+- Shape 3 (lower-middle): stacked cube tower (3 cubes)
+- Shape 4 (bottom): spherical lattice (geodesic sphere)
+All shapes: dichroic iridescent material (cyan-dominant), glowing cyan edges, internal volumetric light. Each rotates on own axis. Connected by thin glowing cyan lines forming VERTICAL chain (collaboration network, top-to-bottom).
+
+FRAMES 221-240: 4 shapes arranged in VERTICAL stack (top to bottom, equidistant). Slow rotation. Connecting lines pulse with traveling light. Camera pulls back. Particles drift. Mood: 4 abstract specialists collaborating — NOT humans.
+
+=====================================================================
+SCENE 5 (0:08-0:10, frames 241-300) — PORTAL OPENS
+=====================================================================
+
+FRAMES 241-260: 4 shapes float toward vertical center, merge into single tall RECTANGULAR PORTAL (vertical orientation, taller than wide, ~2:3 aspect, ~40% of frame height). Portal surface: shimmering cyan energy field, swirling particle patterns inside (wormhole/stargate).
+
+FRAMES 261-280: Portal pulses once brightly (peak frame 270), emits cyan shockwave. Stabilizes, glows steady. Swirling pattern continues inside.
+
+FRAMES 281-300: Camera holds. Frame fades to black from edges inward (vignette closes ~15 frames). Portal last visible — soft cyan glow at center fades last (final 5 frames). Ends on pure black.
+
+=====================================================================
+TECHNICAL DELIVERABLE
+=====================================================================
+- MP4 (H.264, no audio)
+- 10.0 seconds, 1080×1920 (9:16), 30fps (300 frames)
+- High bitrate (15+ Mbps), sRGB
+- NO text, NO watermarks, NO logos except QuackForge 3D in Scene 1
+- NO humans
+- Smooth ease-in-out transitions
+- ONE continuous cinematic shot
+- Cyan (#22D3EE) ONLY colored light
+- Perfect 4-fold symmetry in Scene 3
+
+REFERENCE: Use provided reference image as visual target for Scene 3, recomposed for vertical (longer top/bottom wires, shorter left/right wires).

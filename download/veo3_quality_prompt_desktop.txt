@@ -1,0 +1,154 @@
+                                  VEO 3.1 QUALITY PROMPT — DESKTOP (16:9, 2560×1440)
+                                  =====================================================
+
+REFERENCE IMAGE PROVIDED: A square dark CPU chip centered in frame with exactly 20 glowing cyan circuit traces radiating symmetrically (5 per side: top, bottom, left, right) using 45-degree orthogonal PCB-trace geometry, extending to 85-90% of frame edges. Use this as the EXACT visual target for Scene 3.
+
+LOGO PROVIDED: The QuackForge logo (stylized duck + code brackets). Use as reference for Scene 1 only — do NOT render the logo as flat 2D, do NOT add any text underneath it.
+
+GENERAL SPECIFICATION (applies to ALL scenes):
+- Duration: exactly 10.0 seconds, 30 frames per second, total 300 frames
+- Resolution: 2560×1440 (16:9 widescreen)
+- Silent: absolutely no audio track
+- NO TEXT anywhere in the video — no captions, no titles, no labels, no watermarks, no brand names. All text will be overlaid in code afterward. If you add any text, the video is unusable.
+- NO logos except the QuackForge logo in Scene 1, and only as a 3D extruded form (not flat)
+- NO humans, NO humanoid silhouettes, NO faces, NO hands — only abstract geometric forms
+- NO hard cuts — every transition is a fluid morph
+- ONE continuous cinematic camera feel across all 5 scenes
+
+COLOR PALETTE (STRICT — no other colors allowed):
+- Background: deep navy-to-black gradient (#0A1830 at frame edges fading to pure #000000 at center void)
+- Primary light/accent: electric cyan (#22D3EE) — used for ALL glowing elements, wires, particle cores, shape edges
+- Secondary highlight: white-cyan (#A5F3FC) — only for the brightest sparks and specular peaks
+- Metallic surfaces: dark titanium charcoal (#1a1a2e) with cyan underlighting
+- Crystalline surfaces: dichroic iridescent glass, cyan-dominant (like oil on water but 80% cyan tones)
+- Gold accents ONLY on CPU contact pins (#D4AF37) — small, subtle, technical
+- ABSOLUTELY NO purple, orange, green, red, magenta, or any other hue
+
+LIGHTING & ATMOSPHERE (all scenes):
+- Volumetric god rays emanating from every bright element (cyan light shafts)
+- Depth of field: bokeh particles in foreground AND background, varying sizes
+- Subtle 35mm film grain overlay throughout (not heavy, just texture)
+- Atmospheric haze/fog for depth — distant elements slightly blurred
+- Particles always present — never a fully empty frame (50-200 particles per frame)
+- Specular highlights on all metallic/crystalline surfaces (catching cyan light)
+- Ambient cyan glow bleeding onto surrounding dark surfaces
+- Subtle vignette (corners slightly darker than center)
+
+CAMERA WORK (all scenes):
+- Slow, deliberate, premium movement — never fast, never shaky
+- Smooth ease-in-out transitions (cubic-bezier approximately (0.4, 0, 0.2, 1))
+- NEVER linear motion — always eased
+- Subtle parallax on every layer (foreground moves faster than midground, midground faster than background)
+- Camera path: push in (Scene 1) → orbit (Scene 2-3) → pull back (Scene 4) → hold + slow fade (Scene 5)
+
+=====================================================================
+SCENE 1 (0:00 to 0:02, frames 1-60) — LOGO MATERIALIZES FROM THE VOID
+=====================================================================
+
+OPEN: Pitch-black void (#000000). Nothing visible for the first 3 frames.
+
+FRAMES 4-20: Tiny luminous cyan particles (like distant stars or fireflies, 0.5-2px each) slowly drift inward from all four edges of the frame toward the exact center. Particles vary in brightness — some twinkle. They move slowly (speed: ~5% of frame width per second). As they approach center, they grow brighter and slightly larger. Total particles visible: ~150 spread across the frame, all converging.
+
+FRAMES 21-45: The converging particles coalesce at center. They merge and materialize into the QuackForge logo — but rendered as a 3D EXTRUDED metallic form (depth: ~15% of logo width). The logo has:
+- Dark titanium surface (charcoal #1a1a2e base)
+- Glowing cyan edge-lighting along all its silhouette edges (#22D3EE, bright)
+- Subtle iridescent sheen on the metallic faces (cyan-dominant dichroic effect)
+- The logo is oriented facing camera, centered, occupying ~30% of frame width
+- Around the logo, soft volumetric cyan god rays radiate outward (like sun corona)
+- Remaining unconverged particles continue drifting in the background
+
+FRAMES 46-60: The fully-formed logo pulses ONCE with cyan light (brightness peaks at frame 53, then settles). The pulse emits a soft shockwave of cyan light outward (a thin expanding ring, like a sonar ping). Camera slowly pushes in (dolly forward, ~3% zoom over the 2 seconds). The logo is now the dominant visual anchor — large, centered, glowing, commanding.
+
+NO TEXT under the logo. NO "QuackForge" wordmark. The logo is purely the 3D form.
+
+=====================================================================
+SCENE 2 (0:02 to 0:04, frames 61-120) — LOGO MORPHS INTO A CPU CHIP
+=====================================================================
+
+FRAMES 61-80: The 3D logo does NOT fade out — it TRANSFORMS. Its shape fluidly morphs (over ~20 frames) into a square CPU/microchip viewed from a slight 3/4 angle (tilted ~15 degrees on X axis, ~10 degrees on Y axis). The morph is organic — vertices stretch and reflow, not a cut. The cyan edge-glow persists through the morph, becoming the chip's trace-glow.
+
+FRAMES 81-120: The CPU is now fully formed. Its appearance (MATCH THE REFERENCE IMAGE):
+- Square shape, ~25-30% of frame width, centered
+- Dark matte charcoal PCB base (#1a1a2e)
+- Fine silver/grey circuit traces etched into the surface (top-layer PCB pattern)
+- A smaller solid black square die in the very center (~30% of chip size)
+- 4 small gold square components (#D4AF37) arranged symmetrically around the die
+- A border of tiny gold contact pins runs along all four outer edges of the chip
+- Cyan glow emits from the etched traces (#22D3EE)
+- The chip hovers in dark space, slowly rotating (full rotation over ~10 seconds, so ~36 degrees in this 2-second scene)
+- Metallic surface shows subtle reflections of the cyan glow
+- Camera slowly orbits the chip (matches the rotation direction, slightly slower)
+- Background: deep navy void with ~100 drifting cyan particles at varying depths
+
+The CPU is the SOLE focus. Nothing else in the frame except particles and god rays from the traces.
+
+=====================================================================
+SCENE 3 (0:04 to 0:06, frames 121-180) — 24 WIRES POWER UP THE STACK
+=====================================================================
+
+THIS IS THE MOST IMPORTANT SCENE. Match the reference image exactly.
+
+FRAMES 121-140: From the CPU's four edges, glowing cyan wire-charges begin to extend outward. These are NOT smooth curves — they are ORTHOGONAL PCB TRACES: straight line segments connected by 45-degree mitered corners (like real circuit board traces). The wires grow outward from the chip edges, reaching toward the frame borders.
+
+EXACT WIRE SPECIFICATION:
+- Total wires: EXACTLY 24 (twenty-four)
+- Distribution: 6 wires from the TOP edge, 6 from the BOTTOM edge, 6 from the LEFT edge, 6 from the RIGHT edge
+- Symmetry: PERFECT bilateral and rotational symmetry (4-fold rotational symmetry)
+- Wire color: glowing electric cyan (#22D3EE) with a soft outer glow (cyan bloom, ~3px spread)
+- Wire thickness: ~2-3 pixels (consistent across all 24 wires)
+- Wire geometry: each wire starts perpendicular to the chip edge, extends ~15% of frame width straight, then turns 45 degrees outward (mitered corner), then continues straight toward the frame edge
+- Wire length: each wire extends to 85-90% of the distance from chip edge to frame edge (LONG wires, reaching near the borders but not touching)
+- Wire endpoints: each wire terminates in a small glowing NODE — a bright cyan dot (~4px diameter) with a soft halo (the node is where text labels will be overlaid in code later — leave space around each node, ~50px clear radius)
+- Spacing: the 6 wires on each side are evenly spaced along that edge (equal gaps between them)
+
+FRAMES 141-160: Cyan energy pulses travel ALONG the wires from the CPU outward to the endpoints (like data packets flowing). The pulses are bright cyan (#A5F3FC) and travel at ~30% of frame width per second. Multiple pulses on different wires, staggered. When a pulse reaches an endpoint node, the node brightens momentarily (flashes). This creates a "powering up" effect — the CPU is sending energy to all 24 endpoints.
+
+FRAMES 161-180: All 24 wires are now fully extended and glowing steadily. The endpoint nodes pulse gently (breathing effect: brightness oscillates between 60% and 100% over 2 seconds, staggered across nodes). The CPU continues slow rotation. Camera slowly pulls back (~5% zoom out) to reveal the full symmetrical wire pattern. Background particles drift between the wires. The overall composition matches the reference image: perfect symmetry, 24 wires, 4 sides, 45-degree traces, long reach.
+
+The frame is now a stunning symmetrical circuit mandala — CPU at center, 24 glowing wires radiating to 24 endpoint nodes arranged in a rectangle around the chip.
+
+=====================================================================
+SCENE 4 (0:06 to 0:08, frames 181-240) — ABSTRACT TEAM NODES FORM
+=====================================================================
+
+FRAMES 181-200: The 24 wires RETRACT back into the CPU (like filaments being pulled back, reverse of Scene 3's growth). As they retract, the energy from all 24 wires converges into the CPU. The CPU glows brighter as it absorbs the energy. The 24 endpoint nodes fade out as their wires retract.
+
+FRAMES 201-220: The CPU (still glowing brightly) splits apart into 4 separate abstract geometric shapes. These shapes are NOT humans, NOT silhouettes of people, NOT faces — they are PURE ABSTRACT DIGITAL FORMS:
+- Shape 1 (top-left): faceted hexagonal prism, ~15% of frame width, cyan-edged iridescent dichroic glass material
+- Shape 2 (top-right): twisted Möbius strip, ~15% of frame width, same material
+- Shape 3 (bottom-left): stacked cube tower (3 cubes), ~15% of frame width, same material
+- Shape 4 (bottom-right): spherical lattice (geodesic sphere), ~15% of frame width, same material
+
+All 4 shapes share the same dichroic iridescent material (cyan-dominant — like oil on water but 80% cyan, 15% white-cyan, 5% subtle gold). They have glowing cyan edges (#22D3EE) and internal volumetric light. Each shape hovers and slowly rotates on its own axis (different rotation speeds for visual interest). They are connected to each other by thin glowing cyan lines forming a network/diamond pattern (4 lines connecting the 4 shapes, suggesting collaboration).
+
+FRAMES 221-240: The 4 shapes drift into a diamond formation (one at top, one at bottom, one at left, one at right — all equidistant from center). They continue slow rotation. The connecting cyan lines pulse with traveling light pulses (data flowing between the 4 specialists). Camera slowly pulls back to reveal the full diamond formation. Background particles drift around them. The mood: 4 abstract specialists collaborating — NOT 4 humans.
+
+=====================================================================
+SCENE 5 (0:08 to 0:10, frames 241-300) — THE PORTAL OPENS (CTA)
+=====================================================================
+
+FRAMES 241-260: The 4 crystalline shapes float inward toward the center. As they approach, they merge into a single form — a large glowing RECTANGULAR PORTAL (vertical orientation, taller than wide, aspect ratio ~2:3, occupying ~40% of frame height). The portal's surface is a shimmering cyan energy field with swirling particle patterns inside (like a wormhole or stargate — cyan particles spiraling inward toward a bright center).
+
+FRAMES 261-280: The portal pulses ONCE brightly (brightness peaks at frame 270), emitting a cyan light shockwave outward (expanding ring, like a sonar ping, similar to Scene 1's logo pulse but larger). The portal then stabilizes, glowing steadily. Inside the portal, the swirling particle pattern continues — it looks like a doorway to another space.
+
+FRAMES 281-300: Camera holds on the portal for a beat. Then the entire frame slowly fades to black FROM THE EDGES INWARD (vignette closes over ~15 frames). The portal is the last thing visible — a soft cyan glow at center that gently fades out last (over the final 5 frames). The frame ends on pure black.
+
+The portal represents the CTA — "step through to start your project."
+
+=====================================================================
+TECHNICAL DELIVERABLE
+=====================================================================
+- Format: MP4 (H.264 video, no audio track)
+- Duration: exactly 10.0 seconds
+- Resolution: 2560×1440 (16:9)
+- Frame rate: 30fps (300 frames total)
+- Bitrate: high quality (15+ Mbps)
+- Color space: sRGB
+- NO text, NO watermarks, NO logos (except QuackForge 3D logo in Scene 1)
+- NO humans anywhere
+- Smooth ease-in-out transitions between all scenes
+- ONE continuous cinematic camera feel
+- Cyan (#22D3EE) is the ONLY colored light source
+- Perfect 4-fold symmetry in Scene 3 (24 wires, 6 per side)
+
+REFERENCE: Use the provided reference image (circuit_boxes_removed.png) as the EXACT visual target for Scene 3. The CPU + 24-wire symmetric pattern must match that image's composition, wire geometry (45-degree orthogonal traces), and wire length (85-90% of frame edge).
