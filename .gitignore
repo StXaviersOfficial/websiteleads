@@ -92,3 +92,6 @@ download/*.mp4
 download/video_frames/
 download/hero-*
 public/videos/
+download/research/
+download/audit/
+download/credentials*
