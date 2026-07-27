@@ -95,3 +95,4 @@ public/videos/
 download/research/
 download/audit/
 download/credentials*
+download/credential_audit*.json
