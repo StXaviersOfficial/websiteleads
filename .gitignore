@@ -88,3 +88,7 @@ memory.md
 tool-results/
 download/*.jpg
 download/*.jpeg
+download/*.mp4
+download/video_frames/
+download/hero-*
+public/videos/
