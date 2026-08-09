@@ -1,0 +1,3 @@
+module.exports=[64291,a=>{"use strict";var b=a.i(88624);a.s(["default",0,function({children:a}){return(0,b.jsx)("html",{lang:"en",children:(0,b.jsx)("body",{style:{margin:0,fontFamily:"-apple-system, BlinkMacSystemFont, sans-serif",background:"#0A0F1C",color:"#E6FBFF"},children:a})})},"metadata",0,{title:"QuackForge Business Leads — 1,078 Real Verified Businesses",description:"Real businesses with real phone numbers. Accept, reject, or mark as maybe. Call or WhatsApp directly."}])},22218,function(a){a.n(a.i(64291))}];
+
+//# sourceMappingURL=websiteleads_src_app_layout_tsx_1i5ksix._.js.map
